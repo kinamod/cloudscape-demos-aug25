@@ -23,7 +23,7 @@ export default function WeatherDashboardApp() {
         ref={appLayout}
         navigation={<WeatherNavigation />}
         notifications={<Notifications />}
-        breadcrumbs={<Breadcrumbs />}
+        breadcrumbs={<Breadcrumbs items={[{ text: 'Weather Dashboard', href: '#weather-dashboard' }]} />}
         content={
           <>
             <WeatherHeader />
