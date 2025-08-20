@@ -38,20 +38,17 @@ export function ForecastWidget({ data }: ForecastWidgetProps) {
   };
 
   return (
-    <Container
-      header={
-        <Header variant="h3">
-          7-Day Forecast
-        </Header>
-      }
-    >
-      <div className="forecast-container" style={{
-        display: 'flex',
-        gap: '1rem',
-        overflowX: 'auto',
-        padding: '0.5rem 0',
-        minHeight: '200px'
-      }}>
+    <Container header={<Header variant="h3">7-Day Forecast</Header>}>
+      <div
+        className="forecast-container"
+        style={{
+          display: 'flex',
+          gap: '1rem',
+          overflowX: 'auto',
+          padding: '0.5rem 0',
+          minHeight: '200px',
+        }}
+      >
         {forecastItems.map((item, index) => (
           <div
             key={item.date}
@@ -59,13 +56,19 @@ export function ForecastWidget({ data }: ForecastWidgetProps) {
             style={{
               minWidth: '120px',
               flex: '0 0 auto',
-              backgroundColor: index === 0 ? 'var(--color-background-layout-panel-content)' : 'var(--color-background-container-content)',
-              border: index === 0 ? '2px solid var(--color-border-item-selected)' : '1px solid var(--color-border-divider-default)',
+              backgroundColor:
+                index === 0
+                  ? 'var(--color-background-layout-panel-content)'
+                  : 'var(--color-background-container-content)',
+              border:
+                index === 0
+                  ? '2px solid var(--color-border-item-selected)'
+                  : '1px solid var(--color-border-divider-default)',
               borderRadius: '8px',
               padding: '1rem 0.75rem',
               textAlign: 'center',
               cursor: 'pointer',
-              transition: 'all 0.2s ease'
+              transition: 'all 0.2s ease',
             }}
           >
             <SpaceBetween size="s">
@@ -81,7 +84,11 @@ export function ForecastWidget({ data }: ForecastWidgetProps) {
                 <Icon name={getWeatherIcon(item.weatherCode)} size="medium" />
               </div>
 
-              <Box fontSize="body-xs" textAlign="center" style={{ minHeight: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Box
+                fontSize="body-xs"
+                textAlign="center"
+                style={{ minHeight: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
                 {getWeatherCodeDescription(item.weatherCode)}
               </Box>
 

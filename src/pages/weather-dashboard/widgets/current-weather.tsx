@@ -22,13 +22,7 @@ export function CurrentWeatherWidget({ data }: CurrentWeatherWidgetProps) {
   const weatherIcon = getWeatherIcon(current.weatherCode);
 
   return (
-    <Container
-      header={
-        <Header variant="h3">
-          Current Conditions
-        </Header>
-      }
-    >
+    <Container header={<Header variant="h3">Current Conditions</Header>}>
       <SpaceBetween size="l">
         <div className="current-weather-main">
           <SpaceBetween direction="horizontal" size="m" alignItems="center">
@@ -37,9 +31,7 @@ export function CurrentWeatherWidget({ data }: CurrentWeatherWidgetProps) {
               <Box fontSize="display-l" fontWeight="bold">
                 {Math.round(current.temperature)}°C
               </Box>
-              <Box color="text-status-inactive">
-                {weatherDescription}
-              </Box>
+              <Box color="text-status-inactive">{weatherDescription}</Box>
             </Box>
           </SpaceBetween>
         </div>
@@ -65,9 +57,7 @@ export function CurrentWeatherWidget({ data }: CurrentWeatherWidgetProps) {
 
           <div>
             <Box variant="awsui-key-label">UV Index</Box>
-            <Badge color={getUVIndexColor(current.uvIndex)}>
-              {current.uvIndex}
-            </Badge>
+            <Badge color={getUVIndexColor(current.uvIndex)}>{current.uvIndex}</Badge>
           </div>
 
           <div>
@@ -93,7 +83,24 @@ function getUVIndexColor(uvIndex: number): 'blue' | 'green' | 'yellow' | 'red' {
 }
 
 function getWindDirection(degrees: number): string {
-  const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+  const directions = [
+    'N',
+    'NNE',
+    'NE',
+    'ENE',
+    'E',
+    'ESE',
+    'SE',
+    'SSE',
+    'S',
+    'SSW',
+    'SW',
+    'WSW',
+    'W',
+    'WNW',
+    'NW',
+    'NNW',
+  ];
   const index = Math.round(degrees / 22.5) % 16;
   return directions[index];
 }

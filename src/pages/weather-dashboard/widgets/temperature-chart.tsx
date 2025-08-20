@@ -27,13 +27,7 @@ export function TemperatureChartWidget({ data }: TemperatureChartWidgetProps) {
   }));
 
   return (
-    <Container
-      header={
-        <Header variant="h3">
-          24-Hour Temperature Trend
-        </Header>
-      }
-    >
+    <Container header={<Header variant="h3">24-Hour Temperature Trend</Header>}>
       <div className="temperature-chart">
         <Box padding={{ bottom: 'm' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
@@ -45,7 +39,16 @@ export function TemperatureChartWidget({ data }: TemperatureChartWidgetProps) {
             </Box>
           </div>
 
-          <div className="chart-container" style={{ height: '200px', position: 'relative', border: '1px solid var(--color-border-divider-default)', borderRadius: '8px', padding: '1rem' }}>
+          <div
+            className="chart-container"
+            style={{
+              height: '200px',
+              position: 'relative',
+              border: '1px solid var(--color-border-divider-default)',
+              borderRadius: '8px',
+              padding: '1rem',
+            }}
+          >
             <svg width="100%" height="100%" viewBox="0 0 800 160">
               {/* Grid lines */}
               {[0, 1, 2, 3, 4].map(i => (
@@ -63,11 +66,13 @@ export function TemperatureChartWidget({ data }: TemperatureChartWidgetProps) {
 
               {/* Temperature line */}
               <polyline
-                points={chartData.map((point, index) => {
-                  const x = (index / (chartData.length - 1)) * 800;
-                  const y = 160 - ((point.temperature - minTemp) / tempRange) * 140 - 10;
-                  return `${x},${y}`;
-                }).join(' ')}
+                points={chartData
+                  .map((point, index) => {
+                    const x = (index / (chartData.length - 1)) * 800;
+                    const y = 160 - ((point.temperature - minTemp) / tempRange) * 140 - 10;
+                    return `${x},${y}`;
+                  })
+                  .join(' ')}
                 fill="none"
                 stroke="var(--color-text-accent)"
                 strokeWidth="3"
@@ -78,34 +83,28 @@ export function TemperatureChartWidget({ data }: TemperatureChartWidgetProps) {
               {chartData.map((point, index) => {
                 const x = (index / (chartData.length - 1)) * 800;
                 const y = 160 - ((point.temperature - minTemp) / tempRange) * 140 - 10;
-                return (
-                  <circle
-                    key={index}
-                    cx={x}
-                    cy={y}
-                    r="4"
-                    fill="var(--color-text-accent)"
-                  />
-                );
+                return <circle key={index} cx={x} cy={y} r="4" fill="var(--color-text-accent)" />;
               })}
 
               {/* Hour labels */}
-              {chartData.filter((_, index) => index % 4 === 0).map((point, index) => {
-                const originalIndex = index * 4;
-                const x = (originalIndex / (chartData.length - 1)) * 800;
-                return (
-                  <text
-                    key={originalIndex}
-                    x={x}
-                    y="155"
-                    textAnchor="middle"
-                    fontSize="12"
-                    fill="var(--color-text-status-inactive)"
-                  >
-                    {point.time}:00
-                  </text>
-                );
-              })}
+              {chartData
+                .filter((_, index) => index % 4 === 0)
+                .map((point, index) => {
+                  const originalIndex = index * 4;
+                  const x = (originalIndex / (chartData.length - 1)) * 800;
+                  return (
+                    <text
+                      key={originalIndex}
+                      x={x}
+                      y="155"
+                      textAnchor="middle"
+                      fontSize="12"
+                      fill="var(--color-text-status-inactive)"
+                    >
+                      {point.time}:00
+                    </text>
+                  );
+                })}
             </svg>
           </div>
 

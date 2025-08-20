@@ -25,13 +25,7 @@ export function PrecipitationChartWidget({ data }: PrecipitationChartWidgetProps
   }));
 
   return (
-    <Container
-      header={
-        <Header variant="h3">
-          24-Hour Precipitation & Wind
-        </Header>
-      }
-    >
+    <Container header={<Header variant="h3">24-Hour Precipitation & Wind</Header>}>
       <div className="precipitation-chart">
         <Box padding={{ bottom: 'm' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
@@ -41,7 +35,16 @@ export function PrecipitationChartWidget({ data }: PrecipitationChartWidgetProps
             </Box>
           </div>
 
-          <div className="chart-container" style={{ height: '200px', position: 'relative', border: '1px solid var(--color-border-divider-default)', borderRadius: '8px', padding: '1rem' }}>
+          <div
+            className="chart-container"
+            style={{
+              height: '200px',
+              position: 'relative',
+              border: '1px solid var(--color-border-divider-default)',
+              borderRadius: '8px',
+              padding: '1rem',
+            }}
+          >
             <svg width="100%" height="100%" viewBox="0 0 800 160">
               {/* Grid lines */}
               {[0, 1, 2, 3, 4].map(i => (
@@ -60,7 +63,7 @@ export function PrecipitationChartWidget({ data }: PrecipitationChartWidgetProps
               {/* Precipitation bars */}
               {chartData.map((point, index) => {
                 const x = (index / chartData.length) * 800;
-                const barWidth = 800 / chartData.length * 0.6;
+                const barWidth = (800 / chartData.length) * 0.6;
                 const barHeight = (point.precipitation / maxPrecipitation) * 120;
                 return (
                   <rect
@@ -77,12 +80,14 @@ export function PrecipitationChartWidget({ data }: PrecipitationChartWidgetProps
 
               {/* Wind speed line */}
               <polyline
-                points={chartData.map((point, index) => {
-                  const x = (index / (chartData.length - 1)) * 800;
-                  const maxWind = Math.max(...chartData.map(d => d.windSpeed));
-                  const y = 140 - (point.windSpeed / maxWind) * 100;
-                  return `${x},${y}`;
-                }).join(' ')}
+                points={chartData
+                  .map((point, index) => {
+                    const x = (index / (chartData.length - 1)) * 800;
+                    const maxWind = Math.max(...chartData.map(d => d.windSpeed));
+                    const y = 140 - (point.windSpeed / maxWind) * 100;
+                    return `${x},${y}`;
+                  })
+                  .join(' ')}
                 fill="none"
                 stroke="var(--color-text-status-warning)"
                 strokeWidth="2"
@@ -90,33 +95,46 @@ export function PrecipitationChartWidget({ data }: PrecipitationChartWidgetProps
               />
 
               {/* Hour labels */}
-              {chartData.filter((_, index) => index % 4 === 0).map((point, index) => {
-                const originalIndex = index * 4;
-                const x = (originalIndex / chartData.length) * 800 + (800 / chartData.length) * 0.5;
-                return (
-                  <text
-                    key={originalIndex}
-                    x={x}
-                    y="155"
-                    textAnchor="middle"
-                    fontSize="12"
-                    fill="var(--color-text-status-inactive)"
-                  >
-                    {point.time}:00
-                  </text>
-                );
-              })}
+              {chartData
+                .filter((_, index) => index % 4 === 0)
+                .map((point, index) => {
+                  const originalIndex = index * 4;
+                  const x = (originalIndex / chartData.length) * 800 + (800 / chartData.length) * 0.5;
+                  return (
+                    <text
+                      key={originalIndex}
+                      x={x}
+                      y="155"
+                      textAnchor="middle"
+                      fontSize="12"
+                      fill="var(--color-text-status-inactive)"
+                    >
+                      {point.time}:00
+                    </text>
+                  );
+                })}
             </svg>
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '1rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ width: '12px', height: '12px', backgroundColor: 'var(--color-background-status-info)', opacity: 0.7 }}></div>
-              <Box fontSize="body-s" color="text-status-inactive">Precipitation</Box>
+              <div
+                style={{
+                  width: '12px',
+                  height: '12px',
+                  backgroundColor: 'var(--color-background-status-info)',
+                  opacity: 0.7,
+                }}
+              ></div>
+              <Box fontSize="body-s" color="text-status-inactive">
+                Precipitation
+              </Box>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <div style={{ width: '12px', height: '2px', backgroundColor: 'var(--color-text-status-warning)' }}></div>
-              <Box fontSize="body-s" color="text-status-inactive">Wind Speed</Box>
+              <Box fontSize="body-s" color="text-status-inactive">
+                Wind Speed
+              </Box>
             </div>
           </div>
 

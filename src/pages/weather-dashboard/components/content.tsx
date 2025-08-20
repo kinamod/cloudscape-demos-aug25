@@ -15,12 +15,7 @@ import { ForecastWidget } from '../widgets/forecast';
 import { TemperatureChartWidget } from '../widgets/temperature-chart';
 import { PrecipitationChartWidget } from '../widgets/precipitation-chart';
 
-import {
-  fetchWeatherData,
-  getDefaultLocations,
-  WeatherData,
-  WeatherLocation,
-} from '../services/weather-api';
+import { fetchWeatherData, getDefaultLocations, WeatherData, WeatherLocation } from '../services/weather-api';
 
 export function WeatherContent() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
@@ -71,11 +66,7 @@ export function WeatherContent() {
         statusIconAriaLabel="Error"
         type="error"
         header="Failed to load weather data"
-        action={
-          <button onClick={() => loadWeatherData(selectedLocation)}>
-            Retry
-          </button>
-        }
+        action={<button onClick={() => loadWeatherData(selectedLocation)}>Retry</button>}
       >
         {error}
       </Alert>

@@ -55,7 +55,7 @@ const DEFAULT_LOCATIONS: WeatherLocation[] = [
 
 export async function fetchWeatherData(location: WeatherLocation): Promise<WeatherData> {
   const baseUrl = 'https://api.open-meteo.com/v1/forecast';
-  
+
   const params = new URLSearchParams({
     latitude: location.latitude.toString(),
     longitude: location.longitude.toString(),
@@ -67,30 +67,21 @@ export async function fetchWeatherData(location: WeatherLocation): Promise<Weath
       'relative_humidity_2m',
       'surface_pressure',
       'visibility',
-      'uv_index'
+      'uv_index',
     ].join(','),
-    hourly: [
-      'temperature_2m',
-      'precipitation',
-      'wind_speed_10m',
-      'relative_humidity_2m'
-    ].join(','),
-    daily: [
-      'temperature_2m_max',
-      'temperature_2m_min',
-      'precipitation_sum',
-      'wind_speed_10m_max',
-      'weather_code'
-    ].join(','),
+    hourly: ['temperature_2m', 'precipitation', 'wind_speed_10m', 'relative_humidity_2m'].join(','),
+    daily: ['temperature_2m_max', 'temperature_2m_min', 'precipitation_sum', 'wind_speed_10m_max', 'weather_code'].join(
+      ',',
+    ),
     temperature_unit: 'celsius',
     wind_speed_unit: 'kmh',
     precipitation_unit: 'mm',
     timezone: 'auto',
-    forecast_days: '7'
+    forecast_days: '7',
   });
 
   const response = await fetch(`${baseUrl}?${params}`);
-  
+
   if (!response.ok) {
     throw new Error(`Weather API error: ${response.status} ${response.statusText}`);
   }
@@ -164,7 +155,7 @@ export function getWeatherCodeDescription(code: number): string {
     96: 'Thunderstorm with slight hail',
     99: 'Thunderstorm with heavy hail',
   };
-  
+
   return descriptions[code] || 'Unknown';
 }
 

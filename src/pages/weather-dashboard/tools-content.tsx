@@ -27,8 +27,8 @@ export default function ToolsContent() {
       }
     >
       <p>
-        This weather dashboard demonstrates how to build a responsive weather application using the Open-Meteo API
-        and Cloudscape Design System components.
+        This weather dashboard demonstrates how to build a responsive weather application using the Open-Meteo API and
+        Cloudscape Design System components.
       </p>
       <h3>Key Features</h3>
       <ul>
@@ -40,8 +40,8 @@ export default function ToolsContent() {
       </ul>
       <h3>Data Source</h3>
       <p>
-        Weather data is provided by Open-Meteo, a free and open-source weather API that offers accurate
-        high-resolution weather forecasts without requiring an API key.
+        Weather data is provided by Open-Meteo, a free and open-source weather API that offers accurate high-resolution
+        weather forecasts without requiring an API key.
       </p>
     </HelpPanel>
   );
