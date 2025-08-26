@@ -159,12 +159,15 @@ export function App() {
   };
 
   return (
+    // Main layout using Cloudscape AppLayout component with hidden navigation and tools
+    // This provides the standard AWS console-like layout structure
     <AppLayout
       navigationHide
       toolsHide
       content={
         <ContentLayout
           header={
+            // Main page header with refresh and location buttons
             <Header
               variant="h1"
               description="Real-time weather data and forecasts powered by Open-Meteo API"
