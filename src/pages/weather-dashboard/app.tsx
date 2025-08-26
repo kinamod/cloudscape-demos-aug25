@@ -196,7 +196,7 @@ export function App() {
           }
         >
           <SpaceBetween size="l">
-            {/* Location Search */}
+            {/* Location Search Section - Allows users to search for cities or use current location */}
             <Container>
               <SpaceBetween size="m">
                 <Box variant="h2">Location Search</Box>
@@ -230,14 +230,14 @@ export function App() {
               </SpaceBetween>
             </Container>
 
-            {/* Error Message */}
+            {/* Error Message - Shows API errors, geolocation failures, or search issues */}
             {error && (
               <Alert type="error" dismissible onDismiss={() => setError(null)}>
                 {error}
               </Alert>
             )}
 
-            {/* Loading State */}
+            {/* Loading State - Shows spinner while fetching weather data or geocoding */}
             {loading && (
               <Container>
                 <Box textAlign="center" padding="xl">
@@ -249,13 +249,13 @@ export function App() {
               </Container>
             )}
 
-            {/* Weather Data */}
+            {/* Weather Data Display - Only shown when data is loaded and not loading */}
             {weatherData && !loading && (
               <SpaceBetween size="l">
-                {/* Current Weather */}
+                {/* Current Weather Card - Shows real-time conditions, temperature, humidity, wind */}
                 <CurrentWeatherCard weatherData={weatherData} />
 
-                {/* Forecasts */}
+                {/* Forecast Cards - Side-by-side hourly (24h) and daily (7-day) forecasts */}
                 <ColumnLayout columns={2} variant="text-grid">
                   <HourlyForecastCard weatherData={weatherData} />
                   <DailyForecastCard weatherData={weatherData} />
