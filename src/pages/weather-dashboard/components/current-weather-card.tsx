@@ -18,13 +18,30 @@ interface CurrentWeatherCardProps {
 export function CurrentWeatherCard({ weatherData }: CurrentWeatherCardProps) {
   const { current } = weatherData;
   const weather = getWeatherDescription(current.weatherCode);
-  
+
   const formatTime = (timeString: string) => {
     return new Date(timeString).toLocaleString();
   };
 
   const getWindDirection = (degrees: number) => {
-    const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+    const directions = [
+      'N',
+      'NNE',
+      'NE',
+      'ENE',
+      'E',
+      'ESE',
+      'SE',
+      'SSE',
+      'S',
+      'SSW',
+      'SW',
+      'WSW',
+      'W',
+      'WNW',
+      'NW',
+      'NNW',
+    ];
     const index = Math.round(degrees / 22.5) % 16;
     return directions[index];
   };
@@ -32,10 +49,7 @@ export function CurrentWeatherCard({ weatherData }: CurrentWeatherCardProps) {
   return (
     <Container
       header={
-        <Header
-          variant="h2"
-          description={`Last updated: ${formatTime(current.time)}`}
-        >
+        <Header variant="h2" description={`Last updated: ${formatTime(current.time)}`}>
           Current Weather
         </Header>
       }
@@ -48,15 +62,11 @@ export function CurrentWeatherCard({ weatherData }: CurrentWeatherCardProps) {
               <Box fontSize="display-l" fontWeight="bold" color="text-status-info">
                 {Math.round(current.temperature)}°C
               </Box>
-              <Box fontSize="heading-l">
-                {weather.icon}
-              </Box>
+              <Box fontSize="heading-l">{weather.icon}</Box>
               <Box variant="h3" color="text-status-info">
                 {weather.description}
               </Box>
-              <Badge color="grey">
-                Feels like {Math.round(current.apparentTemperature)}°C
-              </Badge>
+              <Badge color="grey">Feels like {Math.round(current.apparentTemperature)}°C</Badge>
             </SpaceBetween>
           </Box>
 
@@ -66,17 +76,19 @@ export function CurrentWeatherCard({ weatherData }: CurrentWeatherCardProps) {
               <Box variant="awsui-key-label">Wind Speed</Box>
               <Box>{current.windSpeed} km/h</Box>
             </SpaceBetween>
-            
+
             <SpaceBetween size="xs">
               <Box variant="awsui-key-label">Wind Direction</Box>
-              <Box>{getWindDirection(current.windDirection)} ({current.windDirection}°)</Box>
+              <Box>
+                {getWindDirection(current.windDirection)} ({current.windDirection}°)
+              </Box>
             </SpaceBetween>
-            
+
             <SpaceBetween size="xs">
               <Box variant="awsui-key-label">Humidity</Box>
               <Box>{current.relativeHumidity}%</Box>
             </SpaceBetween>
-            
+
             <SpaceBetween size="xs">
               <Box variant="awsui-key-label">Apparent Temperature</Box>
               <Box>{Math.round(current.apparentTemperature)}°C</Box>

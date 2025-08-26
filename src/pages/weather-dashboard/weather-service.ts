@@ -86,33 +86,28 @@ export class WeatherService {
         'apparent_temperature',
         'weather_code',
         'wind_speed_10m',
-        'wind_direction_10m'
+        'wind_direction_10m',
       ].join(','),
-      hourly: [
-        'temperature_2m',
-        'weather_code',
-        'precipitation',
-        'wind_speed_10m'
-      ].join(','),
+      hourly: ['temperature_2m', 'weather_code', 'precipitation', 'wind_speed_10m'].join(','),
       daily: [
         'temperature_2m_max',
         'temperature_2m_min',
         'weather_code',
         'precipitation_sum',
-        'wind_speed_10m_max'
+        'wind_speed_10m_max',
       ].join(','),
       temperature_unit: 'celsius',
       wind_speed_unit: 'kmh',
       precipitation_unit: 'mm',
       timezone: 'auto',
-      forecast_days: '7'
+      forecast_days: '7',
     });
 
     const url = `${this.BASE_URL}?${params}`;
-    
+
     try {
       const response = await fetch(url);
-      
+
       if (!response.ok) {
         throw new Error(`Weather API error: ${response.status} ${response.statusText}`);
       }
@@ -127,14 +122,14 @@ export class WeatherService {
           windDirection: data.current.wind_direction_10m,
           relativeHumidity: data.current.relative_humidity_2m,
           apparentTemperature: data.current.apparent_temperature,
-          time: data.current.time
+          time: data.current.time,
         },
         hourly: {
           time: data.hourly.time.slice(0, 24), // Next 24 hours
           temperature: data.hourly.temperature_2m.slice(0, 24),
           weatherCode: data.hourly.weather_code.slice(0, 24),
           precipitation: data.hourly.precipitation.slice(0, 24),
-          windSpeed: data.hourly.wind_speed_10m.slice(0, 24)
+          windSpeed: data.hourly.wind_speed_10m.slice(0, 24),
         },
         daily: {
           time: data.daily.time,
@@ -142,11 +137,11 @@ export class WeatherService {
           temperatureMin: data.daily.temperature_2m_min,
           weatherCode: data.daily.weather_code,
           precipitationSum: data.daily.precipitation_sum,
-          windSpeedMax: data.daily.wind_speed_10m_max
+          windSpeedMax: data.daily.wind_speed_10m_max,
         },
         timezone: data.timezone,
         latitude: data.latitude,
-        longitude: data.longitude
+        longitude: data.longitude,
       };
     } catch (error) {
       if (error instanceof Error) {

@@ -16,12 +16,12 @@ interface HourlyForecastCardProps {
 
 export function HourlyForecastCard({ weatherData }: HourlyForecastCardProps) {
   const { hourly } = weatherData;
-  
+
   const formatHour = (timeString: string) => {
     const date = new Date(timeString);
-    return date.toLocaleTimeString('en-US', { 
-      hour: 'numeric', 
-      hour12: true 
+    return date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      hour12: true,
     });
   };
 
@@ -31,7 +31,7 @@ export function HourlyForecastCard({ weatherData }: HourlyForecastCardProps) {
     temperature: hourly.temperature[index],
     weatherCode: hourly.weatherCode[index],
     precipitation: hourly.precipitation[index],
-    windSpeed: hourly.windSpeed[index]
+    windSpeed: hourly.windSpeed[index],
   }));
 
   return (
@@ -47,13 +47,9 @@ export function HourlyForecastCard({ weatherData }: HourlyForecastCardProps) {
           {
             id: 'time',
             header: 'Time',
-            cell: item => (
-              <Box fontWeight="bold">
-                {item.formattedTime}
-              </Box>
-            ),
+            cell: item => <Box fontWeight="bold">{item.formattedTime}</Box>,
             sortingField: 'time',
-            width: 80
+            width: 80,
           },
           {
             id: 'weather',
@@ -67,7 +63,7 @@ export function HourlyForecastCard({ weatherData }: HourlyForecastCardProps) {
                 </SpaceBetween>
               );
             },
-            width: 140
+            width: 140,
           },
           {
             id: 'temperature',
@@ -78,32 +74,29 @@ export function HourlyForecastCard({ weatherData }: HourlyForecastCardProps) {
               </Box>
             ),
             sortingField: 'temperature',
-            width: 60
+            width: 60,
           },
           {
             id: 'precipitation',
             header: 'Rain',
-            cell: item => (
+            cell: item =>
               item.precipitation > 0 ? (
                 <Badge color="blue">{item.precipitation} mm</Badge>
               ) : (
-                <Box variant="small" color="text-status-inactive">0 mm</Box>
-              )
-            ),
+                <Box variant="small" color="text-status-inactive">
+                  0 mm
+                </Box>
+              ),
             sortingField: 'precipitation',
-            width: 70
+            width: 70,
           },
           {
             id: 'wind',
             header: 'Wind',
-            cell: item => (
-              <Box variant="small">
-                {Math.round(item.windSpeed)} km/h
-              </Box>
-            ),
+            cell: item => <Box variant="small">{Math.round(item.windSpeed)} km/h</Box>,
             sortingField: 'windSpeed',
-            width: 80
-          }
+            width: 80,
+          },
         ]}
         items={hourlyData}
         loadingText="Loading forecast"

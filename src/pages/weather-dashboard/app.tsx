@@ -30,13 +30,13 @@ export function App() {
 
   // Load weather for a default location (New York) on component mount
   useEffect(() => {
-    loadWeatherData(40.7128, -74.0060, 'New York, NY');
+    loadWeatherData(40.7128, -74.006, 'New York, NY');
   }, []);
 
   const loadWeatherData = async (lat: number, lon: number, locationName: string) => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const data = await WeatherService.getWeatherData(lat, lon);
       setWeatherData(data);
@@ -57,25 +57,25 @@ export function App() {
 
     setLoading(true);
     navigator.geolocation.getCurrentPosition(
-      async (position) => {
+      async position => {
         const { latitude, longitude } = position.coords;
         try {
           // Simple reverse geocoding using a free service
           const response = await fetch(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
           );
           const locationData = await response.json();
           const locationName = `${locationData.city || locationData.locality || 'Unknown'}, ${locationData.countryCode || 'Unknown'}`;
-          
+
           loadWeatherData(latitude, longitude, locationName);
         } catch {
           loadWeatherData(latitude, longitude, `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`);
         }
       },
-      (error) => {
+      error => {
         setLoading(false);
         setError(`Location error: ${error.message}`);
-      }
+      },
     );
   };
 
@@ -88,10 +88,10 @@ export function App() {
     try {
       // Using a free geocoding service
       const response = await fetch(
-        `https://api.bigdatacloud.net/data/geocoding-address?address=${encodeURIComponent(locationQuery)}&localityLanguage=en`
+        `https://api.bigdatacloud.net/data/geocoding-address?address=${encodeURIComponent(locationQuery)}&localityLanguage=en`,
       );
       const locationData = await response.json();
-      
+
       if (locationData.latitude && locationData.longitude) {
         loadWeatherData(locationData.latitude, locationData.longitude, locationQuery);
       } else {
@@ -128,12 +128,7 @@ export function App() {
                   >
                     Refresh
                   </Button>
-                  <Button
-                    variant="primary"
-                    iconName="search"
-                    onClick={handleGetCurrentLocation}
-                    disabled={loading}
-                  >
+                  <Button variant="primary" iconName="search" onClick={handleGetCurrentLocation} disabled={loading}>
                     Use My Location
                   </Button>
                 </SpaceBetween>
@@ -148,13 +143,15 @@ export function App() {
             <Container>
               <SpaceBetween size="m">
                 <Box variant="h2">Location Search</Box>
-                <Grid gridDefinition={[{ colspan: { default: 12, s: 8, m: 6 } }, { colspan: { default: 12, s: 4, m: 2 } }]}>
+                <Grid
+                  gridDefinition={[{ colspan: { default: 12, s: 8, m: 6 } }, { colspan: { default: 12, s: 4, m: 2 } }]}
+                >
                   <FormField label="Search for a city or location">
                     <Input
                       value={locationQuery}
                       onChange={({ detail }) => setLocationQuery(detail.value)}
                       placeholder="Enter city name (e.g., London, Tokyo, San Francisco)"
-                      onKeyDown={(event) => {
+                      onKeyDown={event => {
                         if (event.detail.key === 'Enter') {
                           handleLocationSearch();
                         }
@@ -172,11 +169,7 @@ export function App() {
                     </Button>
                   </FormField>
                 </Grid>
-                {currentLocation && (
-                  <Badge color="blue">
-                    Current location: {currentLocation.name}
-                  </Badge>
-                )}
+                {currentLocation && <Badge color="blue">Current location: {currentLocation.name}</Badge>}
               </SpaceBetween>
             </Container>
 
@@ -204,7 +197,7 @@ export function App() {
               <SpaceBetween size="l">
                 {/* Current Weather */}
                 <CurrentWeatherCard weatherData={weatherData} />
-                
+
                 {/* Forecasts */}
                 <ColumnLayout columns={2} variant="text-grid">
                   <HourlyForecastCard weatherData={weatherData} />

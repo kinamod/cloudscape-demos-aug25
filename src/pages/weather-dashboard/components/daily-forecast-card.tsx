@@ -17,22 +17,22 @@ interface DailyForecastCardProps {
 
 export function DailyForecastCard({ weatherData }: DailyForecastCardProps) {
   const { daily } = weatherData;
-  
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
-    
+
     if (date.toDateString() === today.toDateString()) {
       return 'Today';
     } else if (date.toDateString() === tomorrow.toDateString()) {
       return 'Tomorrow';
     } else {
-      return date.toLocaleDateString('en-US', { 
-        weekday: 'short', 
-        month: 'short', 
-        day: 'numeric' 
+      return date.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
       });
     }
   };
@@ -44,7 +44,7 @@ export function DailyForecastCard({ weatherData }: DailyForecastCardProps) {
     temperatureMin: daily.temperatureMin[index],
     weatherCode: daily.weatherCode[index],
     precipitationSum: daily.precipitationSum[index],
-    windSpeedMax: daily.windSpeedMax[index]
+    windSpeedMax: daily.windSpeedMax[index],
   }));
 
   return (
@@ -81,7 +81,7 @@ export function DailyForecastCard({ weatherData }: DailyForecastCardProps) {
                     </Box>
                   </SpaceBetween>
                 );
-              }
+              },
             },
             {
               id: 'temperature',
@@ -100,30 +100,24 @@ export function DailyForecastCard({ weatherData }: DailyForecastCardProps) {
                     </Box>
                   </SpaceBetween>
                 </ColumnLayout>
-              )
+              ),
             },
             {
               id: 'details',
               content: item => (
                 <SpaceBetween size="xs">
-                  {item.precipitationSum > 0 && (
-                    <Badge color="blue">
-                      Rain: {item.precipitationSum} mm
-                    </Badge>
-                  )}
-                  <Box variant="small">
-                    Max wind: {Math.round(item.windSpeedMax)} km/h
-                  </Box>
+                  {item.precipitationSum > 0 && <Badge color="blue">Rain: {item.precipitationSum} mm</Badge>}
+                  <Box variant="small">Max wind: {Math.round(item.windSpeedMax)} km/h</Box>
                 </SpaceBetween>
-              )
-            }
-          ]
+              ),
+            },
+          ],
         }}
         cardsPerRow={[
           { cards: 1, minWidth: 0 },
           { cards: 2, minWidth: 400 },
           { cards: 3, minWidth: 600 },
-          { cards: 4, minWidth: 800 }
+          { cards: 4, minWidth: 800 },
         ]}
         items={dailyData}
         loadingText="Loading daily forecast"
