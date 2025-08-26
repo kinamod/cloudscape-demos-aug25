@@ -123,26 +123,36 @@ export function App() {
     );
   };
 
+  /**
+   * Handles location search when user types a city name or address
+   * Uses geocoding to convert text input into latitude/longitude coordinates
+   */
   const handleLocationSearch = async () => {
+    // Don't search if input is empty or just whitespace
     if (!locationQuery.trim()) return;
 
     setLoading(true);
     setError(null);
 
     try {
-      // Using a free geocoding service
+      // Use BigDataCloud's free geocoding API to convert address/city name to coordinates
+      // This allows users to search for "London", "Tokyo", "123 Main St" etc.
       const response = await fetch(
         `https://api.bigdatacloud.net/data/geocoding-address?address=${encodeURIComponent(locationQuery)}&localityLanguage=en`,
       );
       const locationData = await response.json();
 
+      // Check if geocoding was successful and returned valid coordinates
       if (locationData.latitude && locationData.longitude) {
+        // Load weather data for the found location using the user's original search term as display name
         loadWeatherData(locationData.latitude, locationData.longitude, locationQuery);
       } else {
+        // Geocoding failed - location not found or ambiguous
         setError('Location not found. Please try a different search term.');
         setLoading(false);
       }
     } catch (err) {
+      // Handle network errors or API failures
       setError('Failed to search for location');
       setLoading(false);
     }
