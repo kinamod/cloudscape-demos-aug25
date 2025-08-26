@@ -40,6 +40,8 @@ export function App() {
   const [currentLocation, setCurrentLocation] = useState<{ lat: number; lon: number; name: string } | null>(null);
 
   // Load weather for a default location (New York) on component mount
+  // This provides immediate weather data when the dashboard first loads
+  // New York coordinates: 40.7128° N, 74.0060° W
   useEffect(() => {
     loadWeatherData(40.7128, -74.006, 'New York, NY');
   }, []);
