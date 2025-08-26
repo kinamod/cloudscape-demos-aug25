@@ -22,10 +22,21 @@ import { HourlyForecastCard } from './components/hourly-forecast-card';
 import { DailyForecastCard } from './components/daily-forecast-card';
 
 export function App() {
+  // State to store the complete weather data fetched from Open-Meteo API
+  // Includes current weather, hourly forecast, and daily forecast
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+
+  // Loading state to show spinner while fetching weather data from API
   const [loading, setLoading] = useState(false);
+
+  // Error state to display any API errors or geolocation failures to the user
   const [error, setError] = useState<string | null>(null);
+
+  // User input for location search (city name, address, etc.)
   const [locationQuery, setLocationQuery] = useState('');
+
+  // Currently selected location with coordinates and display name
+  // Used for refresh functionality and displaying current location badge
   const [currentLocation, setCurrentLocation] = useState<{ lat: number; lon: number; name: string } | null>(null);
 
   // Load weather for a default location (New York) on component mount
@@ -33,18 +44,34 @@ export function App() {
     loadWeatherData(40.7128, -74.006, 'New York, NY');
   }, []);
 
+  /**
+   * Fetches weather data from Open-Meteo API for the specified coordinates
+   * This is the core function that retrieves current conditions, hourly forecast (24h),
+   * and daily forecast (7 days) for any location worldwide
+   *
+   * @param lat - Latitude coordinate (-90 to 90)
+   * @param lon - Longitude coordinate (-180 to 180)
+   * @param locationName - Human-readable location name for display
+   */
   const loadWeatherData = async (lat: number, lon: number, locationName: string) => {
+    // Show loading spinner and clear any previous errors
     setLoading(true);
     setError(null);
 
     try {
+      // Call Open-Meteo API through our weather service
+      // This fetches current weather, 24-hour hourly forecast, and 7-day daily forecast
       const data = await WeatherService.getWeatherData(lat, lon);
+
+      // Update state with successful API response
       setWeatherData(data);
       setCurrentLocation({ lat, lon, name: locationName });
     } catch (err) {
+      // Handle API errors gracefully - could be network issues, invalid coordinates, or API downtime
       setError(err instanceof Error ? err.message : 'Failed to load weather data');
-      setWeatherData(null);
+      setWeatherData(null); // Clear any previous weather data on error
     } finally {
+      // Always hide loading spinner regardless of success or failure
       setLoading(false);
     }
   };
