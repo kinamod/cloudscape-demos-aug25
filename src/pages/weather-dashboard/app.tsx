@@ -78,30 +78,45 @@ export function App() {
     }
   };
 
+  /**
+   * Handles the "Use My Location" button click
+   * Uses browser's geolocation API to get user's current coordinates,
+   * then performs reverse geocoding to get a human-readable location name
+   */
   const handleGetCurrentLocation = () => {
+    // Check if browser supports geolocation (most modern browsers do)
     if (!navigator.geolocation) {
       setError('Geolocation is not supported by this browser');
       return;
     }
 
     setLoading(true);
+
+    // Request user's current position (will prompt for permission if not already granted)
     navigator.geolocation.getCurrentPosition(
       async position => {
         const { latitude, longitude } = position.coords;
         try {
-          // Simple reverse geocoding using a free service
+          // Use BigDataCloud's free reverse geocoding API to convert coordinates to city name
+          // This gives us a human-readable location instead of just showing lat/lon
           const response = await fetch(
             `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
           );
           const locationData = await response.json();
+
+          // Build a friendly location name from the geocoding response
           const locationName = `${locationData.city || locationData.locality || 'Unknown'}, ${locationData.countryCode || 'Unknown'}`;
 
+          // Load weather data for the user's current location
           loadWeatherData(latitude, longitude, locationName);
         } catch {
+          // If reverse geocoding fails, fall back to showing coordinates
+          // Weather data will still load correctly, just with less friendly location name
           loadWeatherData(latitude, longitude, `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`);
         }
       },
       error => {
+        // Handle geolocation errors (permission denied, timeout, etc.)
         setLoading(false);
         setError(`Location error: ${error.message}`);
       },
