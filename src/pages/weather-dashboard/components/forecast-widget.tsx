@@ -79,15 +79,10 @@ export function ForecastWidget({ forecastData }: ForecastWidgetProps) {
                 </Box>
               </div>
               <div style={{ textAlign: 'right' }}>
-                {day.precipitationProbability > 0 && (
-                  <Badge color={day.precipitationProbability > 70 ? 'blue' : 'grey'}>
-                    {day.precipitationProbability}% rain
-                  </Badge>
-                )}
                 {day.precipitation > 0 && (
-                  <Box variant="small" color="text-status-info" margin={{ top: 'xxs' }}>
+                  <Badge color={day.precipitation > 5 ? 'blue' : 'grey'}>
                     {day.precipitation.toFixed(1)}mm
-                  </Box>
+                  </Badge>
                 )}
               </div>
             </ColumnLayout>
