@@ -13,6 +13,7 @@ import { WeatherHeader } from './components/header';
 import { WeatherSideNavigation } from './components/side-navigation';
 
 import '@cloudscape-design/global-styles/dark-mode-utils.css';
+import './styles.scss';
 
 export function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
