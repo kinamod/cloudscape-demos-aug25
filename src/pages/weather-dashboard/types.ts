@@ -67,7 +67,6 @@ export interface OpenMeteoForecastResponse {
     time: string[];
     temperature_2m_max: number[];
     temperature_2m_min: number[];
-    relative_humidity_2m: number[];
     wind_speed_10m_max: number[];
     precipitation_sum: number[];
     precipitation_probability_max: number[];
