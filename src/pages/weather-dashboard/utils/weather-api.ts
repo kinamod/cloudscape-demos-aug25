@@ -84,7 +84,6 @@ export async function fetchForecastData(latitude: number, longitude: number): Pr
       date,
       temperatureMax: Math.round(data.daily.temperature_2m_max[index]),
       temperatureMin: Math.round(data.daily.temperature_2m_min[index]),
-      humidity: data.daily.relative_humidity_2m[index],
       windSpeed: Math.round(data.daily.wind_speed_10m_max[index]),
       precipitation: data.daily.precipitation_sum[index],
       precipitationProbability: data.daily.precipitation_probability_max[index],
