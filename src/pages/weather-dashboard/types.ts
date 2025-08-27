@@ -27,7 +27,6 @@ export interface DailyForecast {
   temperatureMin: number;
   windSpeed: number;
   precipitation: number;
-  precipitationProbability: number;
   weatherCode: number;
   description: string;
 }
@@ -69,7 +68,6 @@ export interface OpenMeteoForecastResponse {
     temperature_2m_min: number[];
     wind_speed_10m_max: number[];
     precipitation_sum: number[];
-    precipitation_probability_max: number[];
     weather_code: number[];
   };
   hourly: {
