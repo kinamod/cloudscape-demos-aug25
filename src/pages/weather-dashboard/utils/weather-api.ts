@@ -86,7 +86,6 @@ export async function fetchForecastData(latitude: number, longitude: number): Pr
       temperatureMin: Math.round(data.daily.temperature_2m_min[index]),
       windSpeed: Math.round(data.daily.wind_speed_10m_max[index]),
       precipitation: data.daily.precipitation_sum[index],
-      precipitationProbability: data.daily.precipitation_probability_max[index],
       weatherCode: data.daily.weather_code[index],
       description: WEATHER_CODE_DESCRIPTIONS[data.daily.weather_code[index]] || 'Unknown',
     }));
