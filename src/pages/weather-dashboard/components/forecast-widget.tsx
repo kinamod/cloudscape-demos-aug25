@@ -55,45 +55,37 @@ export function ForecastWidget({ forecastData }: ForecastWidgetProps) {
         </Header>
       }
     >
-      <SpaceBetween size="s">
-        {forecastData.daily.map((day, index) => (
-          <div key={day.date} className="forecast-day-item">
-            <ColumnLayout columns={4} variant="text-grid">
-              <div>
-                <Box fontWeight="bold">
-                  {formatDate(day.date)}
-                </Box>
-                <Box variant="small" color="text-status-inactive">
-                  {day.description}
-                </Box>
-              </div>
-              <div style={{ textAlign: 'center' }}>
-                <Icon name={getWeatherIcon(day.weatherCode)} />
-              </div>
-              <div style={{ textAlign: 'center' }}>
-                <Box fontWeight="bold">
-                  {day.temperatureMax}° / {day.temperatureMin}°
-                </Box>
-                <Box variant="small" color="text-status-inactive">
-                  {day.windSpeed} km/h
-                </Box>
-              </div>
-              <div style={{ textAlign: 'right' }}>
-                {day.precipitation > 0 && (
-                  <Badge color={day.precipitation > 5 ? 'blue' : 'grey'}>
-                    {day.precipitation.toFixed(1)}mm
-                  </Badge>
-                )}
-              </div>
-            </ColumnLayout>
-            {index < forecastData.daily.length - 1 && (
-              <Box margin={{ top: 's', bottom: 's' }}>
-                <hr style={{ border: 'none', borderTop: '1px solid #e9ebed', margin: 0 }} />
+      <ColumnLayout columns={7} variant="text-grid">
+        {forecastData.daily.map((day) => (
+          <div key={day.date} className="forecast-day-card">
+            <Box textAlign="center">
+              <Box fontWeight="bold" margin={{ bottom: 'xs' }}>
+                {formatDate(day.date)}
               </Box>
-            )}
+              <Box margin={{ bottom: 's' }}>
+                <Icon name={getWeatherIcon(day.weatherCode)} />
+              </Box>
+              <Box fontWeight="bold" margin={{ bottom: 'xs' }}>
+                {day.temperatureMax}°
+              </Box>
+              <Box variant="small" color="text-status-inactive" margin={{ bottom: 's' }}>
+                {day.temperatureMin}°
+              </Box>
+              <Box variant="small" color="text-status-inactive" margin={{ bottom: 'xs' }}>
+                {day.description}
+              </Box>
+              <Box variant="small" color="text-status-inactive" margin={{ bottom: 'xs' }}>
+                {day.windSpeed} km/h
+              </Box>
+              {day.precipitation > 0 && (
+                <Badge color={day.precipitation > 5 ? 'blue' : 'grey'}>
+                  {day.precipitation.toFixed(1)}mm
+                </Badge>
+              )}
+            </Box>
           </div>
         ))}
-      </SpaceBetween>
+      </ColumnLayout>
     </Container>
   );
 }
