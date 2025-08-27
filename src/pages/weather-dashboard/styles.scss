@@ -16,12 +16,35 @@
 
 .forecast-day-item {
   padding: 1rem 0;
-  
+
   &:hover {
     background-color: var(--color-background-container-content);
     border-radius: 0.5rem;
     padding: 1rem;
     margin: 0 -1rem;
+  }
+}
+
+.forecast-day-card {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+  border: 1px solid var(--color-border-container-divider);
+  background-color: var(--color-background-container-content);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-border-item-focused);
+  }
+
+  .awsui-icon {
+    margin: 0.5rem 0;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 }
 
