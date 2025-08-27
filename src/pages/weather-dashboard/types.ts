@@ -25,7 +25,6 @@ export interface DailyForecast {
   date: string;
   temperatureMax: number;
   temperatureMin: number;
-  humidity: number;
   windSpeed: number;
   precipitation: number;
   precipitationProbability: number;
