@@ -47,16 +47,13 @@ export function ForecastWidget({ forecastData }: ForecastWidgetProps) {
   return (
     <Container
       header={
-        <Header
-          variant="h2"
-          description="7-day weather forecast"
-        >
+        <Header variant="h2" description="7-day weather forecast">
           Forecast
         </Header>
       }
     >
       <ColumnLayout columns={7} variant="text-grid">
-        {forecastData.daily.map((day) => (
+        {forecastData.daily.map(day => (
           <div key={day.date} className="forecast-day-card">
             <Box textAlign="center">
               <Box fontWeight="bold" margin={{ bottom: 'xs' }}>
@@ -78,9 +75,7 @@ export function ForecastWidget({ forecastData }: ForecastWidgetProps) {
                 {day.windSpeed} km/h
               </Box>
               {day.precipitation > 0 && (
-                <Badge color={day.precipitation > 5 ? 'blue' : 'grey'}>
-                  {day.precipitation.toFixed(1)}mm
-                </Badge>
+                <Badge color={day.precipitation > 5 ? 'blue' : 'grey'}>{day.precipitation.toFixed(1)}mm</Badge>
               )}
             </Box>
           </div>

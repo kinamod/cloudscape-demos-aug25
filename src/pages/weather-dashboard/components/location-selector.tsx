@@ -17,14 +17,14 @@ interface LocationSelectorProps {
 }
 
 const PRESET_LOCATIONS = [
-  { label: 'New York City, NY', value: { latitude: 40.7128, longitude: -74.0060, name: 'New York City, NY' } },
+  { label: 'New York City, NY', value: { latitude: 40.7128, longitude: -74.006, name: 'New York City, NY' } },
   { label: 'London, UK', value: { latitude: 51.5074, longitude: -0.1278, name: 'London, UK' } },
   { label: 'Tokyo, Japan', value: { latitude: 35.6762, longitude: 139.6503, name: 'Tokyo, Japan' } },
   { label: 'Sydney, Australia', value: { latitude: -33.8688, longitude: 151.2093, name: 'Sydney, Australia' } },
   { label: 'Paris, France', value: { latitude: 48.8566, longitude: 2.3522, name: 'Paris, France' } },
   { label: 'Toronto, Canada', value: { latitude: 43.6532, longitude: -79.3832, name: 'Toronto, Canada' } },
-  { label: 'Berlin, Germany', value: { latitude: 52.5200, longitude: 13.4050, name: 'Berlin, Germany' } },
-  { label: 'Mumbai, India', value: { latitude: 19.0760, longitude: 72.8777, name: 'Mumbai, India' } },
+  { label: 'Berlin, Germany', value: { latitude: 52.52, longitude: 13.405, name: 'Berlin, Germany' } },
+  { label: 'Mumbai, India', value: { latitude: 19.076, longitude: 72.8777, name: 'Mumbai, India' } },
   { label: 'São Paulo, Brazil', value: { latitude: -23.5505, longitude: -46.6333, name: 'São Paulo, Brazil' } },
   { label: 'Dubai, UAE', value: { latitude: 25.2048, longitude: 55.2708, name: 'Dubai, UAE' } },
 ];
@@ -36,9 +36,8 @@ export function LocationSelector({ currentLocation, onLocationChange }: Location
   const [showCustomForm, setShowCustomForm] = useState(false);
 
   const selectedOption = PRESET_LOCATIONS.find(
-    location => 
-      location.value.latitude === currentLocation.latitude && 
-      location.value.longitude === currentLocation.longitude
+    location =>
+      location.value.latitude === currentLocation.latitude && location.value.longitude === currentLocation.longitude,
   ) || { label: currentLocation.name, value: currentLocation };
 
   const handlePresetLocationChange = (option: any) => {
@@ -51,14 +50,14 @@ export function LocationSelector({ currentLocation, onLocationChange }: Location
   const handleCustomLocationSubmit = () => {
     const lat = parseFloat(customLatitude);
     const lng = parseFloat(customLongitude);
-    
+
     if (isNaN(lat) || isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
       alert('Please enter valid coordinates (Latitude: -90 to 90, Longitude: -180 to 180)');
       return;
     }
 
     const name = customName.trim() || `${lat.toFixed(2)}, ${lng.toFixed(2)}`;
-    
+
     onLocationChange({
       latitude: lat,
       longitude: lng,
@@ -75,7 +74,7 @@ export function LocationSelector({ currentLocation, onLocationChange }: Location
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        position => {
           const { latitude, longitude } = position.coords;
           onLocationChange({
             latitude,
@@ -83,11 +82,11 @@ export function LocationSelector({ currentLocation, onLocationChange }: Location
             name: `Current Location (${latitude.toFixed(2)}, ${longitude.toFixed(2)})`,
           });
         },
-        (error) => {
+        error => {
           console.error('Error getting location:', error);
           alert('Unable to get your current location. Please check your browser permissions.');
         },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 },
       );
     } else {
       alert('Geolocation is not supported by this browser.');
@@ -110,10 +109,7 @@ export function LocationSelector({ currentLocation, onLocationChange }: Location
             <Button onClick={getCurrentLocation} iconName="location">
               Use Current
             </Button>
-            <Button 
-              onClick={() => setShowCustomForm(!showCustomForm)}
-              variant={showCustomForm ? 'normal' : 'link'}
-            >
+            <Button onClick={() => setShowCustomForm(!showCustomForm)} variant={showCustomForm ? 'normal' : 'link'}>
               Custom Location
             </Button>
           </SpaceBetween>
@@ -153,14 +149,12 @@ export function LocationSelector({ currentLocation, onLocationChange }: Location
               <Button variant="primary" onClick={handleCustomLocationSubmit}>
                 Set Location
               </Button>
-              <Button onClick={() => setShowCustomForm(false)}>
-                Cancel
-              </Button>
+              <Button onClick={() => setShowCustomForm(false)}>Cancel</Button>
             </SpaceBetween>
           </SpaceBetween>
         </Box>
       )}
-      
+
       <Box variant="small" color="text-status-inactive">
         Current: {currentLocation.name} ({currentLocation.latitude.toFixed(4)}, {currentLocation.longitude.toFixed(4)})
       </Box>

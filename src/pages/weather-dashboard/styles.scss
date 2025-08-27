@@ -3,10 +3,10 @@
 
 .current-weather-main {
   padding: 2rem 0;
-  
+
   .awsui-icon {
     margin-bottom: 1rem;
-    
+
     svg {
       width: 4rem;
       height: 4rem;
@@ -50,12 +50,13 @@
 
 .weather-chart-container {
   padding: 1rem 0;
-  
-  .hourly-chart-item, .daily-chart-item {
+
+  .hourly-chart-item,
+  .daily-chart-item {
     padding: 1rem;
     border-radius: 0.5rem;
     transition: all 0.2s ease;
-    
+
     &:hover {
       background-color: var(--color-background-container-content);
       transform: translateY(-2px);
@@ -68,19 +69,20 @@
 @media (max-width: 768px) {
   .current-weather-main {
     padding: 1rem 0;
-    
+
     .awsui-icon svg {
       width: 3rem;
       height: 3rem;
     }
   }
-  
+
   .forecast-day-item {
     padding: 0.75rem 0;
   }
-  
+
   .weather-chart-container {
-    .hourly-chart-item, .daily-chart-item {
+    .hourly-chart-item,
+    .daily-chart-item {
       padding: 0.75rem;
     }
   }

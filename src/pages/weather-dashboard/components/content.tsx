@@ -18,10 +18,10 @@ import { WeatherData, ForecastData, Location } from '../types';
 export function Content() {
   const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(null);
   const [forecast, setForecast] = useState<ForecastData | null>(null);
-  const [location, setLocation] = useState<Location>({ 
-    latitude: 40.7128, 
-    longitude: -74.0060, 
-    name: 'New York City, NY' 
+  const [location, setLocation] = useState<Location>({
+    latitude: 40.7128,
+    longitude: -74.006,
+    name: 'New York City, NY',
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,13 +33,13 @@ export function Content() {
   const loadWeatherData = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const [weatherData, forecastData] = await Promise.all([
         fetchWeatherData(location.latitude, location.longitude),
-        fetchForecastData(location.latitude, location.longitude)
+        fetchForecastData(location.latitude, location.longitude),
       ]);
-      
+
       setCurrentWeather(weatherData);
       setForecast(forecastData);
     } catch (err) {
@@ -75,37 +75,18 @@ export function Content() {
   return (
     <SpaceBetween size="l">
       <Container>
-        <Header
-          variant="h2"
-          description="Select a location to view current weather conditions and forecasts"
-        >
+        <Header variant="h2" description="Select a location to view current weather conditions and forecasts">
           Location & Current Weather
         </Header>
-        <LocationSelector 
-          currentLocation={location} 
-          onLocationChange={handleLocationChange} 
-        />
+        <LocationSelector currentLocation={location} onLocationChange={handleLocationChange} />
       </Container>
 
-      <Grid
-        gridDefinition={[
-          { colspan: { default: 12, l: 6 } },
-          { colspan: { default: 12, l: 6 } },
-        ]}
-      >
-        <CurrentWeatherWidget 
-          weatherData={currentWeather} 
-          location={location} 
-        />
-        <ForecastWidget 
-          forecastData={forecast} 
-        />
+      <Grid gridDefinition={[{ colspan: { default: 12, l: 6 } }, { colspan: { default: 12, l: 6 } }]}>
+        <CurrentWeatherWidget weatherData={currentWeather} location={location} />
+        <ForecastWidget forecastData={forecast} />
       </Grid>
 
-      <WeatherChartWidget 
-        forecastData={forecast} 
-        location={location} 
-      />
+      <WeatherChartWidget forecastData={forecast} location={location} />
     </SpaceBetween>
   );
 }

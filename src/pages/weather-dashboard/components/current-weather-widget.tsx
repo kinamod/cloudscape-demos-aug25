@@ -30,19 +30,16 @@ export function CurrentWeatherWidget({ weatherData, location }: CurrentWeatherWi
   }
 
   const formatTime = (timeString: string) => {
-    return new Date(timeString).toLocaleTimeString([], { 
-      hour: '2-digit', 
-      minute: '2-digit' 
+    return new Date(timeString).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
     });
   };
 
   return (
     <Container
       header={
-        <Header
-          variant="h2"
-          description={`${location.name} • Updated ${formatTime(weatherData.time)}`}
-        >
+        <Header variant="h2" description={`${location.name} • Updated ${formatTime(weatherData.time)}`}>
           Current Weather
         </Header>
       }
@@ -52,17 +49,10 @@ export function CurrentWeatherWidget({ weatherData, location }: CurrentWeatherWi
         <Box textAlign="center">
           <div className="current-weather-main">
             <Icon name={getWeatherIcon(weatherData.weatherCode)} size="large" />
-            <Box
-              fontSize="display-l"
-              fontWeight="bold"
-              margin={{ top: 's', bottom: 'xs' }}
-            >
+            <Box fontSize="display-l" fontWeight="bold" margin={{ top: 's', bottom: 'xs' }}>
               {weatherData.temperature}°C
             </Box>
-            <Box
-              fontSize="heading-s"
-              color="text-status-info"
-            >
+            <Box fontSize="heading-s" color="text-status-info">
               {weatherData.description}
             </Box>
           </div>
@@ -91,12 +81,24 @@ export function CurrentWeatherWidget({ weatherData, location }: CurrentWeatherWi
           <div>
             <Box variant="awsui-key-label">UV Index</Box>
             <Box variant="awsui-value-large">
-              {weatherData.uvIndex} 
-              <Box 
-                variant="small" 
-                color={weatherData.uvIndex > 7 ? 'text-status-error' : weatherData.uvIndex > 5 ? 'text-status-warning' : 'text-status-success'}
+              {weatherData.uvIndex}
+              <Box
+                variant="small"
+                color={
+                  weatherData.uvIndex > 7
+                    ? 'text-status-error'
+                    : weatherData.uvIndex > 5
+                      ? 'text-status-warning'
+                      : 'text-status-success'
+                }
               >
-                {weatherData.uvIndex > 7 ? 'Very High' : weatherData.uvIndex > 5 ? 'High' : weatherData.uvIndex > 2 ? 'Moderate' : 'Low'}
+                {weatherData.uvIndex > 7
+                  ? 'Very High'
+                  : weatherData.uvIndex > 5
+                    ? 'High'
+                    : weatherData.uvIndex > 2
+                      ? 'Moderate'
+                      : 'Low'}
               </Box>
             </Box>
           </div>

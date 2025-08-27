@@ -31,16 +31,16 @@ export function WeatherChartWidget({ forecastData, location }: WeatherChartWidge
   }
 
   const formatHour = (timeString: string) => {
-    return new Date(timeString).toLocaleTimeString([], { 
-      hour: 'numeric', 
-      hour12: true 
+    return new Date(timeString).toLocaleTimeString([], {
+      hour: 'numeric',
+      hour12: true,
     });
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString([], { 
-      month: 'short', 
-      day: 'numeric' 
+    return new Date(dateString).toLocaleDateString([], {
+      month: 'short',
+      day: 'numeric',
     });
   };
 
@@ -101,10 +101,7 @@ export function WeatherChartWidget({ forecastData, location }: WeatherChartWidge
   return (
     <Container
       header={
-        <Header
-          variant="h2"
-          description={`Weather trends and forecasts for ${location.name}`}
-        >
+        <Header variant="h2" description={`Weather trends and forecasts for ${location.name}`}>
           Weather Trends
         </Header>
       }

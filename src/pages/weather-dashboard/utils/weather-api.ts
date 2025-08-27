@@ -36,16 +36,16 @@ const WEATHER_CODE_DESCRIPTIONS: Record<number, string> = {
 
 export async function fetchWeatherData(latitude: number, longitude: number): Promise<WeatherData> {
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m,surface_pressure,visibility,uv_index,cloud_cover,weather_code&timezone=auto`;
-  
+
   try {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Weather API error: ${response.status}`);
     }
-    
+
     const data: OpenMeteoCurrentResponse = await response.json();
     const current = data.current;
-    
+
     return {
       temperature: Math.round(current.temperature_2m),
       humidity: current.relative_humidity_2m,
@@ -76,9 +76,9 @@ export async function fetchForecastData(latitude: number, longitude: number): Pr
       console.error('API Error Response:', errorText);
       throw new Error(`Forecast API error: ${response.status} - ${errorText}`);
     }
-    
+
     const data: OpenMeteoForecastResponse = await response.json();
-    
+
     // Process daily forecast
     const daily = data.daily.time.map((date, index) => ({
       date,
@@ -89,7 +89,7 @@ export async function fetchForecastData(latitude: number, longitude: number): Pr
       weatherCode: data.daily.weather_code[index],
       description: WEATHER_CODE_DESCRIPTIONS[data.daily.weather_code[index]] || 'Unknown',
     }));
-    
+
     // Process hourly forecast (next 24 hours)
     const hourly = data.hourly.time.slice(0, 24).map((time, index) => ({
       time,
@@ -100,7 +100,7 @@ export async function fetchForecastData(latitude: number, longitude: number): Pr
       windSpeed: Math.round(data.hourly.wind_speed_10m[index]),
       weatherCode: data.hourly.weather_code[index],
     }));
-    
+
     return { daily, hourly };
   } catch (error) {
     console.error('Failed to fetch forecast data:', error);
@@ -119,7 +119,24 @@ export function getWeatherIcon(weatherCode: number): string {
 }
 
 export function formatWindDirection(degrees: number): string {
-  const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+  const directions = [
+    'N',
+    'NNE',
+    'NE',
+    'ENE',
+    'E',
+    'ESE',
+    'SE',
+    'SSE',
+    'S',
+    'SSW',
+    'SW',
+    'WSW',
+    'W',
+    'WNW',
+    'NW',
+    'NNW',
+  ];
   const index = Math.round(degrees / 22.5) % 16;
   return directions[index];
 }
