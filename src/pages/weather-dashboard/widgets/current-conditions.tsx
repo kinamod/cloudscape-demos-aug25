@@ -69,12 +69,10 @@ function CurrentConditionsWidget() {
           <Box variant="p" color="text-status-info">
             {weather.description}
           </Box>
-          <Box variant="small">
-            Feels like {weather.feelsLike}°C
-          </Box>
+          <Box variant="small">Feels like {weather.feelsLike}°C</Box>
         </SpaceBetween>
       </Box>
-      
+
       <KeyValuePairs
         columns={2}
         items={[

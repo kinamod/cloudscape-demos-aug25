@@ -26,16 +26,11 @@ export function Content() {
         { colspan: { l: 6, m: 6, default: 12 } }, // Precipitation
       ]}
     >
-      {[
-        currentConditions,
-        weatherAlerts,
-        hourlyForecast,
-        dailyForecast,
-        windConditions,
-        precipitation,
-      ].map((widget, index) => (
-        <BaseStaticWidget key={index} config={widget.data} />
-      ))}
+      {[currentConditions, weatherAlerts, hourlyForecast, dailyForecast, windConditions, precipitation].map(
+        (widget, index) => (
+          <BaseStaticWidget key={index} config={widget.data} />
+        ),
+      )}
     </Grid>
   );
 }

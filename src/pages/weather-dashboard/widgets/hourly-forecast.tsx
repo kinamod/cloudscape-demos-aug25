@@ -49,17 +49,19 @@ function HourlyForecastWidget() {
 
   return (
     <Box>
-      <div style={{ 
-        display: 'flex', 
-        overflowX: 'auto', 
-        gap: '16px', 
-        padding: '8px 0',
-        scrollBehavior: 'smooth'
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          overflowX: 'auto',
+          gap: '16px',
+          padding: '8px 0',
+          scrollBehavior: 'smooth',
+        }}
+      >
         {forecast.map((hour, index) => {
           const time = new Date(hour.time);
           const weather = getWeatherDescription(hour.weatherCode);
-          
+
           return (
             <div
               key={index}
@@ -76,18 +78,12 @@ function HourlyForecastWidget() {
                 <Box variant="small" fontWeight="bold">
                   {time.getHours()}:00
                 </Box>
-                <Box fontSize="display-s">
-                  {weather.icon}
-                </Box>
-                <Box variant="strong">
-                  {hour.temperature}°
-                </Box>
+                <Box fontSize="display-s">{weather.icon}</Box>
+                <Box variant="strong">{hour.temperature}°</Box>
                 <Box variant="small" color="text-status-info">
                   {hour.precipitationProbability}%
                 </Box>
-                <Box variant="small">
-                  {hour.windSpeed} km/h
-                </Box>
+                <Box variant="small">{hour.windSpeed} km/h</Box>
               </SpaceBetween>
             </div>
           );

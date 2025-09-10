@@ -49,13 +49,15 @@ function DailyForecastWidget() {
 
   return (
     <Box>
-      <div style={{
-        display: 'flex',
-        overflowX: 'auto',
-        gap: '16px',
-        padding: '8px 0',
-        scrollBehavior: 'smooth'
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          overflowX: 'auto',
+          gap: '16px',
+          padding: '8px 0',
+          scrollBehavior: 'smooth',
+        }}
+      >
         {forecast.map((day, index) => {
           const date = new Date(day.date);
           const weather = getWeatherDescription(day.weatherCode);
@@ -85,9 +87,7 @@ function DailyForecastWidget() {
                   </Box>
                 </SpaceBetween>
 
-                <Box fontSize="display-l">
-                  {weather.icon}
-                </Box>
+                <Box fontSize="display-l">{weather.icon}</Box>
 
                 <Box variant="small" textAlign="center">
                   {weather.description}

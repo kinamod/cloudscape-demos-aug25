@@ -20,7 +20,24 @@ function WindConditionsHeader() {
 }
 
 function getWindDirection(degrees: number): string {
-  const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+  const directions = [
+    'N',
+    'NNE',
+    'NE',
+    'ENE',
+    'E',
+    'ESE',
+    'SE',
+    'SSE',
+    'S',
+    'SSW',
+    'SW',
+    'WSW',
+    'W',
+    'WNW',
+    'NW',
+    'NNW',
+  ];
   return directions[Math.round(degrees / 22.5) % 16];
 }
 
@@ -83,9 +100,7 @@ function WindConditionsWidget() {
     <SpaceBetween size="l">
       <Box textAlign="center">
         <SpaceBetween size="s">
-          <Box fontSize="display-l">
-            💨
-          </Box>
+          <Box fontSize="display-l">💨</Box>
           <Box fontSize="heading-l" fontWeight="bold">
             {wind.windSpeed} km/h
           </Box>

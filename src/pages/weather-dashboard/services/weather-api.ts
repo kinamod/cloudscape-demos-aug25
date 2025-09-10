@@ -94,7 +94,7 @@ export function getWeatherDescription(code: number): { description: string; icon
 
 export async function fetchWeatherData(
   latitude: number = DEFAULT_LATITUDE,
-  longitude: number = DEFAULT_LONGITUDE
+  longitude: number = DEFAULT_LONGITUDE,
 ): Promise<{
   current: WeatherCondition;
   hourly: HourlyForecast[];
@@ -103,9 +103,15 @@ export async function fetchWeatherData(
   const url = new URL('https://api.open-meteo.com/v1/forecast');
   url.searchParams.set('latitude', latitude.toString());
   url.searchParams.set('longitude', longitude.toString());
-  url.searchParams.set('current', 'temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m');
+  url.searchParams.set(
+    'current',
+    'temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m',
+  );
   url.searchParams.set('hourly', 'temperature_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m');
-  url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code,wind_speed_10m_max');
+  url.searchParams.set(
+    'daily',
+    'temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code,wind_speed_10m_max',
+  );
   url.searchParams.set('timezone', 'auto');
   url.searchParams.set('forecast_days', '7');
 
@@ -114,11 +120,11 @@ export async function fetchWeatherData(
     if (!response.ok) {
       throw new Error(`Weather API error: ${response.status}`);
     }
-    
+
     const data: WeatherData = await response.json();
-    
+
     const weather = getWeatherDescription(data.current.weather_code);
-    
+
     return {
       current: {
         temperature: Math.round(data.current.temperature_2m),

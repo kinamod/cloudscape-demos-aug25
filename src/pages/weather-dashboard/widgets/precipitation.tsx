@@ -32,11 +32,11 @@ function PrecipitationWidget() {
     async function loadPrecipitation() {
       try {
         const weatherData = await fetchWeatherData();
-        
+
         // Calculate daily total from hourly data
         const next24Hours = weatherData.hourly.slice(0, 24);
         const dailyTotal = next24Hours.reduce((sum, hour) => sum + hour.precipitation, 0);
-        
+
         setData({
           current: weatherData.current.precipitation,
           hourly: next24Hours,
@@ -90,7 +90,7 @@ function PrecipitationWidget() {
           },
         ]}
       />
-      
+
       <SpaceBetween size="s">
         <Box variant="strong">Probability next 6 hours</Box>
         <ProgressBar
@@ -100,19 +100,14 @@ function PrecipitationWidget() {
           label="Chance of rain"
         />
       </SpaceBetween>
-      
+
       <SpaceBetween size="s">
         <Box variant="strong">Hourly breakdown</Box>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
           {next6Hours.map((hour, index) => {
             const time = new Date(hour.time);
             return (
-              <Box
-                key={index}
-                padding="xs"
-                textAlign="center"
-                background="background-control-default"
-              >
+              <Box key={index} padding="xs" textAlign="center" background="background-control-default">
                 <SpaceBetween size="xs">
                   <Box variant="small">{time.getHours()}:00</Box>
                   <Box variant="strong">{hour.precipitationProbability}%</Box>

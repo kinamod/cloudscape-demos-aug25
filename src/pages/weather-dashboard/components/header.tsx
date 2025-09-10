@@ -49,17 +49,16 @@ export function WeatherDashboardMainInfo() {
         <Box>
           <Box variant="strong">About this dashboard</Box>
           <Box variant="p">
-            This weather dashboard displays real-time weather data and forecasts using the Open-Meteo API. 
-            The dashboard includes current conditions, hourly and daily forecasts, precipitation data, 
-            wind conditions, and weather alerts.
+            This weather dashboard displays real-time weather data and forecasts using the Open-Meteo API. The dashboard
+            includes current conditions, hourly and daily forecasts, precipitation data, wind conditions, and weather
+            alerts.
           </Box>
         </Box>
         <Box>
           <Box variant="strong">Data source</Box>
           <Box variant="p">
-            Weather data is provided by Open-Meteo, a free weather API for non-commercial use. 
-            The API provides high-quality weather forecasts and historical data from multiple 
-            meteorological services.
+            Weather data is provided by Open-Meteo, a free weather API for non-commercial use. The API provides
+            high-quality weather forecasts and historical data from multiple meteorological services.
           </Box>
         </Box>
       </SpaceBetween>

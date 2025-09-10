@@ -35,10 +35,10 @@ function WeatherAlertsWidget() {
     async function loadAlerts() {
       try {
         const data = await fetchWeatherData();
-        
+
         // Generate sample alerts based on current conditions
         const generatedAlerts: WeatherAlert[] = [];
-        
+
         if (data.current.windSpeed > 25) {
           generatedAlerts.push({
             id: 'wind-advisory',
@@ -48,7 +48,7 @@ function WeatherAlertsWidget() {
             icon: '💨',
           });
         }
-        
+
         if (data.current.precipitation > 5) {
           generatedAlerts.push({
             id: 'heavy-rain',
@@ -58,7 +58,7 @@ function WeatherAlertsWidget() {
             icon: '🌧️',
           });
         }
-        
+
         if (data.current.temperature < 0) {
           generatedAlerts.push({
             id: 'freeze-warning',
@@ -68,7 +68,7 @@ function WeatherAlertsWidget() {
             icon: '🧊',
           });
         }
-        
+
         if (data.current.temperature > 35) {
           generatedAlerts.push({
             id: 'heat-advisory',
@@ -78,7 +78,7 @@ function WeatherAlertsWidget() {
             icon: '🌡️',
           });
         }
-        
+
         // Add a general info alert if no specific alerts
         if (generatedAlerts.length === 0) {
           generatedAlerts.push({
@@ -89,7 +89,7 @@ function WeatherAlertsWidget() {
             icon: '✅',
           });
         }
-        
+
         setAlerts(generatedAlerts);
       } catch (error) {
         console.error('Failed to load alerts:', error);
