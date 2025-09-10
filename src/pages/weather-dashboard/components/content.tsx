@@ -19,7 +19,7 @@ export function WeatherContent() {
   const loadWeatherData = async (location: Location) => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const data = await fetchWeatherData(location);
       setWeatherData(data);
@@ -46,12 +46,7 @@ export function WeatherContent() {
   return (
     <SpaceBetween size="l">
       {error && (
-        <Alert
-          type="error"
-          dismissible
-          onDismiss={() => setError(null)}
-          header="Weather Data Error"
-        >
+        <Alert type="error" dismissible onDismiss={() => setError(null)} header="Weather Data Error">
           {error}
         </Alert>
       )}
@@ -68,11 +63,7 @@ export function WeatherContent() {
           onRefresh={handleRefresh}
           loading={loading}
         />
-        <CurrentWeather
-          data={weatherData}
-          locationName={selectedLocation.name}
-          loading={loading}
-        />
+        <CurrentWeather data={weatherData} locationName={selectedLocation.name} loading={loading} />
       </Grid>
 
       <Grid

@@ -56,14 +56,16 @@ export function TemperatureChart({ data, loading }: TemperatureChartProps) {
         <ColumnLayout columns={2} variant="text-grid">
           <div>
             <Box variant="awsui-key-label">Temperature Range</Box>
-            <Box>{minTemp}°C - {maxTemp}°C</Box>
+            <Box>
+              {minTemp}°C - {maxTemp}°C
+            </Box>
           </div>
           <div>
             <Box variant="awsui-key-label">Data Points</Box>
             <Box>{next24Hours.length} hours</Box>
           </div>
         </ColumnLayout>
-        
+
         <Box margin={{ top: 'l' }}>
           <Box variant="h4">Hourly Temperature (Next 24 Hours)</Box>
           <Box margin={{ top: 's' }}>
@@ -73,7 +75,8 @@ export function TemperatureChart({ data, loading }: TemperatureChartProps) {
                   <div
                     style={{
                       height: `${getBarHeight(hour.temperature)}px`,
-                      backgroundColor: hour.temperature > 20 ? '#d73027' : hour.temperature > 10 ? '#fee08b' : '#4575b4',
+                      backgroundColor:
+                        hour.temperature > 20 ? '#d73027' : hour.temperature > 10 ? '#fee08b' : '#4575b4',
                       marginBottom: '5px',
                       borderRadius: '2px',
                     }}

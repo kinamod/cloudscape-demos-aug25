@@ -38,13 +38,13 @@ export function Forecast({ data, loading }: ForecastProps) {
     date: new Date(date).toLocaleDateString('en-US', {
       weekday: 'short',
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
     }),
     weather: getWeatherDescription(data.daily.weather_code[index]),
     high: Math.round(data.daily.temperature_2m_max[index]),
     low: Math.round(data.daily.temperature_2m_min[index]),
     precipitation: Math.round(data.daily.precipitation_sum[index] * 10) / 10,
-    weatherCode: data.daily.weather_code[index]
+    weatherCode: data.daily.weather_code[index],
   }));
 
   const getPrecipitationBadge = (amount: number) => {
@@ -58,28 +58,31 @@ export function Forecast({ data, loading }: ForecastProps) {
   const horizontalData = [
     {
       metric: 'Date',
-      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, day.date]))
+      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, day.date])),
     },
     {
       metric: 'Conditions',
-      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, day.weather]))
+      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, day.weather])),
     },
     {
       metric: 'High',
-      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, `${day.high}°C`]))
+      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, `${day.high}°C`])),
     },
     {
       metric: 'Low',
-      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, `${day.low}°C`]))
+      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, `${day.low}°C`])),
     },
     {
       metric: 'Precipitation',
-      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`,
-        <span key={index}>
-          {day.precipitation}mm {getPrecipitationBadge(day.precipitation)}
-        </span>
-      ]))
-    }
+      ...Object.fromEntries(
+        forecastDays.map((day, index) => [
+          `day${index}`,
+          <span key={index}>
+            {day.precipitation}mm {getPrecipitationBadge(day.precipitation)}
+          </span>,
+        ]),
+      ),
+    },
   ];
 
   // Generate column definitions dynamically
@@ -95,7 +98,7 @@ export function Forecast({ data, loading }: ForecastProps) {
       header: forecastDays[index].date,
       cell: (item: any) => item[`day${index}`],
       width: 100,
-    }))
+    })),
   ];
 
   return (

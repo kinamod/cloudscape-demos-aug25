@@ -29,11 +29,7 @@ export function LocationSelector({ selectedLocation, onLocationChange, onRefresh
       header={
         <Header
           actions={
-            <Button 
-              iconName="refresh" 
-              loading={loading}
-              onClick={onRefresh}
-            >
+            <Button iconName="refresh" loading={loading} onClick={onRefresh}>
               Refresh Data
             </Button>
           }

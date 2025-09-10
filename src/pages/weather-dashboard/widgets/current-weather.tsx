@@ -43,10 +43,7 @@ export function CurrentWeather({ data, locationName, loading }: CurrentWeatherPr
   return (
     <Container
       header={
-        <Header
-          description={`Current conditions for ${locationName}`}
-          actions={<Badge color="green">Live</Badge>}
-        >
+        <Header description={`Current conditions for ${locationName}`} actions={<Badge color="green">Live</Badge>}>
           Current Weather
         </Header>
       }

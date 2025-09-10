@@ -12,11 +12,7 @@ export interface WeatherHeaderProps {
 
 export function WeatherHeader({ actions }: WeatherHeaderProps) {
   return (
-    <Header
-      variant="h1"
-      actions={actions}
-      description="Real-time weather data and forecasts powered by Open-Meteo API"
-    >
+    <Header variant="h1" actions={actions} description="Real-time weather data and forecasts powered by Open-Meteo API">
       Weather Dashboard
     </Header>
   );
@@ -33,7 +29,7 @@ export function WeatherMainInfo() {
             It uses the free Open-Meteo weather API to display current conditions and forecasts.
           </Box>
         </Box>
-        
+
         <Box>
           <Box variant="h3">Features</Box>
           <ul>
@@ -48,8 +44,8 @@ export function WeatherMainInfo() {
         <Box>
           <Box variant="h3">Data source</Box>
           <Box variant="p">
-            Weather data is provided by Open-Meteo, a free weather API service that offers 
-            high-resolution forecasts without requiring API keys.
+            Weather data is provided by Open-Meteo, a free weather API service that offers high-resolution forecasts
+            without requiring API keys.
           </Box>
         </Box>
       </SpaceBetween>
