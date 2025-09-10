@@ -34,11 +34,11 @@ export function Forecast({ data, loading }: ForecastProps) {
     );
   }
 
-  const forecastItems = data.daily.time.map((date, index) => ({
-    date: new Date(date).toLocaleDateString('en-US', { 
-      weekday: 'short', 
-      month: 'short', 
-      day: 'numeric' 
+  const forecastDays = data.daily.time.map((date, index) => ({
+    date: new Date(date).toLocaleDateString('en-US', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric'
     }),
     weather: getWeatherDescription(data.daily.weather_code[index]),
     high: Math.round(data.daily.temperature_2m_max[index]),
@@ -54,47 +54,57 @@ export function Forecast({ data, loading }: ForecastProps) {
     return <Badge color="red">Heavy</Badge>;
   };
 
+  // Create horizontal table data structure
+  const horizontalData = [
+    {
+      metric: 'Date',
+      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, day.date]))
+    },
+    {
+      metric: 'Conditions',
+      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, day.weather]))
+    },
+    {
+      metric: 'High',
+      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, `${day.high}°C`]))
+    },
+    {
+      metric: 'Low',
+      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`, `${day.low}°C`]))
+    },
+    {
+      metric: 'Precipitation',
+      ...Object.fromEntries(forecastDays.map((day, index) => [`day${index}`,
+        <span key={index}>
+          {day.precipitation}mm {getPrecipitationBadge(day.precipitation)}
+        </span>
+      ]))
+    }
+  ];
+
+  // Generate column definitions dynamically
+  const columnDefinitions = [
+    {
+      id: 'metric',
+      header: '',
+      cell: (item: any) => <Box fontWeight="bold">{item.metric}</Box>,
+      width: 120,
+    },
+    ...forecastDays.map((_, index) => ({
+      id: `day${index}`,
+      header: forecastDays[index].date,
+      cell: (item: any) => item[`day${index}`],
+      width: 100,
+    }))
+  ];
+
   return (
     <Container header={<Header>7-Day Forecast</Header>}>
       <Table
-        columnDefinitions={[
-          {
-            id: 'date',
-            header: 'Date',
-            cell: item => <Box fontWeight="bold">{item.date}</Box>,
-            width: 120,
-          },
-          {
-            id: 'weather',
-            header: 'Conditions',
-            cell: item => item.weather,
-            width: 150,
-          },
-          {
-            id: 'high',
-            header: 'High',
-            cell: item => <Box fontWeight="bold">{item.high}°C</Box>,
-            width: 80,
-          },
-          {
-            id: 'low',
-            header: 'Low',
-            cell: item => `${item.low}°C`,
-            width: 80,
-          },
-          {
-            id: 'precipitation',
-            header: 'Precipitation',
-            cell: item => (
-              <div>
-                {item.precipitation}mm {getPrecipitationBadge(item.precipitation)}
-              </div>
-            ),
-            width: 140,
-          },
-        ]}
-        items={forecastItems}
-        trackBy="date"
+        columnDefinitions={columnDefinitions}
+        items={horizontalData}
+        trackBy="metric"
+        variant="borderless"
         empty={
           <Box textAlign="center" color="inherit">
             <Box variant="strong" textAlign="center" color="inherit">
