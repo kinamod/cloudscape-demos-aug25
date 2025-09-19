@@ -138,50 +138,47 @@ export function Content() {
         latitude: String(loc.latitude),
         longitude: String(loc.longitude),
         timezone: 'auto',
-        current:
-          [
-            'temperature_2m',
-            'apparent_temperature',
-            'relative_humidity_2m',
-            'is_day',
-            'precipitation',
-            'rain',
-            'showers',
-            'snowfall',
-            'weather_code',
-            'cloud_cover',
-            'pressure_msl',
-            'wind_speed_10m',
-            'wind_gusts_10m',
-            'wind_direction_10m',
-          ].join(','),
-        hourly:
-          [
-            'temperature_2m',
-            'apparent_temperature',
-            'precipitation_probability',
-            'precipitation',
-            'weather_code',
-            'cloud_cover',
-            'pressure_msl',
-            'wind_speed_10m',
-            'wind_gusts_10m',
-            'wind_direction_10m',
-          ].join(','),
-        daily:
-          [
-            'weather_code',
-            'temperature_2m_max',
-            'temperature_2m_min',
-            'apparent_temperature_max',
-            'apparent_temperature_min',
-            'sunrise',
-            'sunset',
-            'uv_index_max',
-            'precipitation_sum',
-            'precipitation_probability_max',
-            'wind_speed_10m_max',
-          ].join(','),
+        current: [
+          'temperature_2m',
+          'apparent_temperature',
+          'relative_humidity_2m',
+          'is_day',
+          'precipitation',
+          'rain',
+          'showers',
+          'snowfall',
+          'weather_code',
+          'cloud_cover',
+          'pressure_msl',
+          'wind_speed_10m',
+          'wind_gusts_10m',
+          'wind_direction_10m',
+        ].join(','),
+        hourly: [
+          'temperature_2m',
+          'apparent_temperature',
+          'precipitation_probability',
+          'precipitation',
+          'weather_code',
+          'cloud_cover',
+          'pressure_msl',
+          'wind_speed_10m',
+          'wind_gusts_10m',
+          'wind_direction_10m',
+        ].join(','),
+        daily: [
+          'weather_code',
+          'temperature_2m_max',
+          'temperature_2m_min',
+          'apparent_temperature_max',
+          'apparent_temperature_min',
+          'sunrise',
+          'sunset',
+          'uv_index_max',
+          'precipitation_sum',
+          'precipitation_probability_max',
+          'wind_speed_10m_max',
+        ].join(','),
         forecast_days: '7',
       });
       const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
@@ -221,7 +218,9 @@ export function Content() {
         summary: weatherCodeText(code),
         tempMax: `${daily.temperature_2m_max[idx]}${daily_units.temperature_2m_max || '°C'}`,
         tempMin: `${daily.temperature_2m_min[idx]}${daily_units.temperature_2m_min || '°C'}`,
-        precip: daily.precipitation_sum ? `${daily.precipitation_sum[idx]}${daily_units.precipitation_sum || 'mm'}` : '-',
+        precip: daily.precipitation_sum
+          ? `${daily.precipitation_sum[idx]}${daily_units.precipitation_sum || 'mm'}`
+          : '-',
         uv: daily.uv_index_max ? `${daily.uv_index_max[idx]}` : '-',
       };
     });
@@ -237,7 +236,10 @@ export function Content() {
       temp: `${hourly.temperature_2m?.[i]}${hourly_units.temperature_2m || '°C'}`,
       feels: `${hourly.apparent_temperature?.[i]}${hourly_units.apparent_temperature || '°C'}`,
       precipProb: hourly.precipitation_probability?.[i] != null ? `${hourly.precipitation_probability[i]}%` : '-',
-      wind: hourly.wind_speed_10m?.[i] != null ? `${hourly.wind_speed_10m[i]} ${hourly_units.wind_speed_10m || 'km/h'}` : '-',
+      wind:
+        hourly.wind_speed_10m?.[i] != null
+          ? `${hourly.wind_speed_10m[i]} ${hourly_units.wind_speed_10m || 'km/h'}`
+          : '-',
     }));
   }, [forecast]);
 
@@ -249,7 +251,10 @@ export function Content() {
             variant="h2"
             description={
               <>
-                Data by Open-Meteo. <Link external href="https://open-meteo.com/en/docs">API docs</Link>
+                Data by Open-Meteo.{' '}
+                <Link external href="https://open-meteo.com/en/docs">
+                  API docs
+                </Link>
               </>
             }
           >
@@ -257,7 +262,12 @@ export function Content() {
           </Header>
         }
       >
-        <Grid gridDefinition={[{ colspan: { default: 12, s: 8, m: 8, l: 8 } }, { colspan: { default: 12, s: 4, m: 4, l: 4 } }]}>
+        <Grid
+          gridDefinition={[
+            { colspan: { default: 12, s: 8, m: 8, l: 8 } },
+            { colspan: { default: 12, s: 4, m: 4, l: 4 } },
+          ]}
+        >
           <Autosuggest
             value={query}
             onChange={({ detail }) => setQuery(detail.value)}
@@ -275,9 +285,7 @@ export function Content() {
             statusType={suggestionsLoading ? 'loading' : 'finished'}
             loadingText="Loading suggestions"
             empty="No matches"
-            finishedText={
-              suggestions.length > 0 ? 'Use up/down to navigate, enter to select' : 'No suggestions'
-            }
+            finishedText={suggestions.length > 0 ? 'Use up/down to navigate, enter to select' : 'No suggestions'}
           />
           <div>
             <Button
@@ -305,7 +313,7 @@ export function Content() {
         {loadingForecast && <StatusIndicator type="loading">Loading forecast</StatusIndicator>}
         {error && <StatusIndicator type="error">{error}</StatusIndicator>}
         {!loadingForecast && !error && forecast?.current && (
-          <Grid gridDefinition={[{ colspan: { default: 12, s: 6 } }, { colspan: { default: 12, s: 6 } }]}> 
+          <Grid gridDefinition={[{ colspan: { default: 12, s: 6 } }, { colspan: { default: 12, s: 6 } }]}>
             <SpaceBetween size="s">
               <Box variant="awsui-key-label">Temperature</Box>
               <div>
