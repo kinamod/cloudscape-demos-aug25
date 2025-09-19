@@ -77,6 +77,7 @@ export function App() {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounced(query, 300);
   const [suggestions, setSuggestions] = useState<AutosuggestProps.Options>([]);
+  const [lastResults, setLastResults] = useState<GeoResult[]>([]);
   const [location, setLocation] = useState<GeoResult>(DEFAULT_LOCATION);
 
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
@@ -93,13 +94,15 @@ export function App() {
       const res = await fetch(url);
       if (!res.ok) throw new Error(`Geocoding failed (${res.status})`);
       const data = await res.json();
-      const options: AutosuggestProps.Options = (data.results || []).map((r: GeoResult) => ({
-        value: `${r.name}, ${r.country}${r.admin1 ? `, ${r.admin1}` : ''}`,
+      const results: GeoResult[] = data.results || [];
+      const options: AutosuggestProps.Options = results.map((r: GeoResult) => ({
+        value: `${r.name}, ${r.country}${r.admin1 ? `, ${r.admin1}` : ''} (#${r.id})`,
+        label: `${r.name}, ${r.country}${r.admin1 ? `, ${r.admin1}` : ''}`,
         description: `${r.latitude.toFixed(2)}, ${r.longitude.toFixed(2)} • ${r.timezone}`,
         labelTag: r.timezone,
         tags: [r.country],
-        extra: r,
       }));
+      setLastResults(results);
       setSuggestions(options);
     } catch (e: any) {
       // Non-blocking error for suggestions
@@ -148,9 +151,12 @@ export function App() {
   }, [location.latitude, location.longitude]);
 
   const onSelectSuggestion: AutosuggestProps['onSelect'] = ({ detail }) => {
-    const selected = detail.option.extra as GeoResult | undefined;
-    if (selected) {
-      setLocation(selected);
+    const value = detail.option?.value || '';
+    const match = value.match(/#(\d+)\)?$/);
+    const id = match ? Number(match[1]) : undefined;
+    if (id) {
+      const found = lastResults.find(r => r.id === id);
+      if (found) setLocation(found);
     }
   };
 
@@ -232,6 +238,7 @@ export function App() {
                   onSelect={onSelectSuggestion}
                   value={query}
                   options={suggestions}
+                  enteredTextLabel={val => `Use \"${val}\"`}
                   placeholder="Search for a city (e.g. London, Paris, Tokyo)"
                   ariaLabel="Search city"
                   empty="No matches"
