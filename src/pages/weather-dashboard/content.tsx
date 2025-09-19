@@ -4,7 +4,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Autosuggest, { AutosuggestProps } from '@cloudscape-design/components/autosuggest';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
-import Cards from '@cloudscape-design/components/cards';
 import Container from '@cloudscape-design/components/container';
 import Grid from '@cloudscape-design/components/grid';
 import Header from '@cloudscape-design/components/header';
@@ -344,26 +343,19 @@ export function Content() {
       </Container>
 
       <Container header={<Header variant="h2">7-day forecast</Header>}>
-        <Cards
-          cardDefinition={{
-            header: item => <span>{item.date}</span>,
-            sections: [
-              { id: 'summary', header: 'Summary', content: item => item.summary },
-              { id: 'temps', header: 'Temperatures', content: item => `Max ${item.tempMax} / Min ${item.tempMin}` },
-              { id: 'precip', header: 'Precipitation', content: item => item.precip },
-              { id: 'uv', header: 'UV index', content: item => item.uv },
-            ],
-          }}
-          cardsPerRow={[
-            { cards: 1, minWidth: 0 },
-            { cards: 2, minWidth: 500 },
-            { cards: 3, minWidth: 800 },
-            { cards: 4, minWidth: 1100 },
-          ]}
+        <Table
           items={dailyItems}
-          trackBy={item => item.date}
-          visibleSections={['summary', 'temps', 'precip', 'uv']}
+          trackBy="date"
+          columnDefinitions={[
+            { id: 'date', header: 'Date', cell: item => item.date, sortingField: 'date' },
+            { id: 'summary', header: 'Summary', cell: item => item.summary },
+            { id: 'max', header: 'Max temp', cell: item => item.tempMax },
+            { id: 'min', header: 'Min temp', cell: item => item.tempMin },
+            { id: 'precip', header: 'Precipitation', cell: item => item.precip },
+            { id: 'uv', header: 'UV index', cell: item => item.uv },
+          ]}
           empty={<Box variant="p">No daily data</Box>}
+          header={<Header>Daily forecast</Header>}
         />
       </Container>
 
