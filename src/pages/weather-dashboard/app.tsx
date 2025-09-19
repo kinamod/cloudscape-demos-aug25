@@ -253,7 +253,10 @@ export function App() {
                     {location.country ? `, ${location.country}` : ''}
                   </b>{' '}
                   at {location.latitude.toFixed(2)}, {location.longitude.toFixed(2)} •{' '}
-                  <Link external href={`https://www.openstreetmap.org/#map=10/${location.latitude}/${location.longitude}`}>
+                  <Link
+                    external
+                    href={`https://www.openstreetmap.org/#map=10/${location.latitude}/${location.longitude}`}
+                  >
                     View on map
                   </Link>
                 </Box>
@@ -264,13 +267,19 @@ export function App() {
               <Container header={<Header variant="h2">Current conditions</Header>}>
                 <ColumnLayout columns={3} variant="text-grid">
                   <Box>
-                    <Box variant="small" color="text-label">Temperature</Box>
+                    <Box variant="small" color="text-label">
+                      Temperature
+                    </Box>
                     <Box variant="h1">
-                      {weather?.current?.temperature_2m != null ? `${weather.current.temperature_2m.toFixed(1)} °C` : '—'}
+                      {weather?.current?.temperature_2m != null
+                        ? `${weather.current.temperature_2m.toFixed(1)} °C`
+                        : '—'}
                     </Box>
                   </Box>
                   <Box>
-                    <Box variant="small" color="text-label">Feels like</Box>
+                    <Box variant="small" color="text-label">
+                      Feels like
+                    </Box>
                     <Box variant="h1">
                       {weather?.current?.apparent_temperature != null
                         ? `${weather.current.apparent_temperature.toFixed(1)} °C`
@@ -278,7 +287,9 @@ export function App() {
                     </Box>
                   </Box>
                   <Box>
-                    <Box variant="small" color="text-label">Humidity</Box>
+                    <Box variant="small" color="text-label">
+                      Humidity
+                    </Box>
                     <Box variant="h1">
                       {weather?.current?.relative_humidity_2m != null
                         ? `${Math.round(weather.current.relative_humidity_2m)} %`
@@ -286,7 +297,9 @@ export function App() {
                     </Box>
                   </Box>
                   <Box>
-                    <Box variant="small" color="text-label">Wind speed</Box>
+                    <Box variant="small" color="text-label">
+                      Wind speed
+                    </Box>
                     <Box variant="h1">
                       {weather?.current?.wind_speed_10m != null
                         ? `${weather.current.wind_speed_10m.toFixed(1)} ${weather?.current_units?.wind_speed_10m ?? 'km/h'}`
@@ -294,7 +307,9 @@ export function App() {
                     </Box>
                   </Box>
                   <Box>
-                    <Box variant="small" color="text-label">Wind direction</Box>
+                    <Box variant="small" color="text-label">
+                      Wind direction
+                    </Box>
                     <Box variant="h1">
                       {weather?.current?.wind_direction_10m != null
                         ? `${Math.round(weather.current.wind_direction_10m)}°`
@@ -302,7 +317,9 @@ export function App() {
                     </Box>
                   </Box>
                   <Box>
-                    <Box variant="small" color="text-label">Updated</Box>
+                    <Box variant="small" color="text-label">
+                      Updated
+                    </Box>
                     <Box variant="h1">
                       {weather?.current?.time ? new Date(weather.current.time).toLocaleString() : '—'}
                     </Box>
@@ -319,7 +336,10 @@ export function App() {
                   series={temperatureSeries}
                   xDomain={
                     weather?.hourly?.time && weather.hourly.time.length
-                      ? [new Date(weather.hourly.time[0]), new Date(weather.hourly.time[weather.hourly.time.length - 1])]
+                      ? [
+                          new Date(weather.hourly.time[0]),
+                          new Date(weather.hourly.time[weather.hourly.time.length - 1]),
+                        ]
                       : undefined
                   }
                   xScaleType="time"
@@ -337,8 +357,8 @@ export function App() {
               <Container header={<Header variant="h2">About Open‑Meteo</Header>}>
                 <SpaceBetween size="s">
                   <Box variant="p">
-                    Open‑Meteo provides free weather APIs with hourly forecasts and current conditions. Data is returned as
-                    JSON and can be used directly from the browser.
+                    Open‑Meteo provides free weather APIs with hourly forecasts and current conditions. Data is returned
+                    as JSON and can be used directly from the browser.
                   </Box>
                   <Box variant="p">
                     Read the documentation and explore variables at{' '}
