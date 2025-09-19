@@ -157,6 +157,7 @@ export function App() {
     if (id) {
       const found = lastResults.find(r => r.id === id);
       if (found) setLocation(found);
+      setQuery(detail.option?.label || '');
     }
   };
 
