@@ -264,7 +264,8 @@ export function Content() {
             value={query}
             onChange={({ detail }) => setQuery(detail.value)}
             onSelect={({ detail }) => {
-              const item = detail.option?.data as GeoResult | undefined;
+              const opt = detail.option as any;
+              const item = (opt?.data as GeoResult) || null;
               if (item) {
                 setSelected(item);
                 fetchForecast(item);
