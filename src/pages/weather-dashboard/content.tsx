@@ -158,7 +158,6 @@ export function Content() {
           ].join(','),
         hourly:
           [
-            'time',
             'temperature_2m',
             'apparent_temperature',
             'precipitation_probability',
