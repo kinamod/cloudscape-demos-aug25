@@ -259,7 +259,6 @@ export function App() {
                 },
               ]}
               items={rows}
-              trackBy={(_, index) => String(index)}
               empty={<Box padding={{ vertical: 'm' }}>Enter a city to see the forecast.</Box>}
             />
           </Container>
