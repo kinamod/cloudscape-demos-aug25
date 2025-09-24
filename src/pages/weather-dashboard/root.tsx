@@ -10,6 +10,7 @@ import Header from '@cloudscape-design/components/header';
 import Input from '@cloudscape-design/components/input';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Table from '@cloudscape-design/components/table';
+import { TableProps } from '@cloudscape-design/components/table';
 
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 import { CustomAppLayout, Notifications } from '../commons/common-components';
