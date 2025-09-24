@@ -121,6 +121,20 @@ export function App() {
   const [rows, setRows] = useState<DailyRow[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sortingState, setSortingState] = useState<TableProps.SortingState<DailyRow>>();
+  const items = useMemo(() => {
+    if (!sortingState || !sortingState.sortingColumn || !('sortingField' in sortingState.sortingColumn)) {
+      return rows;
+    }
+    const field = sortingState.sortingColumn.sortingField as keyof DailyRow | undefined;
+    if (field !== 'temperatureMax' && field !== 'temperatureMin') return rows;
+    const sorted = [...rows].sort((a, b) => {
+      const av = a[field] as number;
+      const bv = b[field] as number;
+      return av - bv;
+    });
+    return sortingState.isDescending ? sorted.reverse() : sorted;
+  }, [rows, sortingState]);
 
   const locationLabel = useMemo(() => {
     if (!resolvedPlace) return '';
@@ -242,11 +256,13 @@ export function App() {
                   id: 'temperatureMax',
                   header: 'High (°C)',
                   cell: (item: DailyRow) => `${Math.round(item.temperatureMax)}°`,
+                  sortingField: 'temperatureMax',
                 },
                 {
                   id: 'temperatureMin',
                   header: 'Low (°C)',
                   cell: (item: DailyRow) => `${Math.round(item.temperatureMin)}°`,
+                  sortingField: 'temperatureMin',
                 },
                 {
                   id: 'precipitationProbability',
@@ -259,7 +275,10 @@ export function App() {
                   cell: (item: DailyRow) => (item.windSpeedMax == null ? '—' : `${Math.round(item.windSpeedMax)}`),
                 },
               ]}
-              items={rows}
+              items={items}
+              sortingColumn={sortingState?.sortingColumn}
+              sortingDescending={sortingState?.isDescending}
+              onSortingChange={({ detail }) => setSortingState(detail)}
               empty={<Box padding={{ vertical: 'm' }}>Enter a city to see the forecast.</Box>}
             />
           </Container>
