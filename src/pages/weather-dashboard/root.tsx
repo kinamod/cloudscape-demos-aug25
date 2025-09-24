@@ -169,11 +169,13 @@ export function App() {
         return {
           date,
           weekday,
-          condition: code != null ? WMO_CODE_DESCRIPTION[code] ?? `Code ${code}` : '—',
+          condition: code != null ? (WMO_CODE_DESCRIPTION[code] ?? `Code ${code}`) : '—',
           temperatureMax: daily.temperature_2m_max[idx],
           temperatureMin: daily.temperature_2m_min[idx],
-          precipitationProbability: daily.precipitation_probability_max ? daily.precipitation_probability_max[idx] ?? null : null,
-          windSpeedMax: daily.wind_speed_10m_max ? daily.wind_speed_10m_max[idx] ?? null : null,
+          precipitationProbability: daily.precipitation_probability_max
+            ? (daily.precipitation_probability_max[idx] ?? null)
+            : null,
+          windSpeedMax: daily.wind_speed_10m_max ? (daily.wind_speed_10m_max[idx] ?? null) : null,
         };
       });
       setRows(result);
@@ -267,7 +269,8 @@ export function App() {
                 {
                   id: 'precipitationProbability',
                   header: 'Precip (%)',
-                  cell: (item: DailyRow) => (item.precipitationProbability == null ? '—' : `${Math.round(item.precipitationProbability)}%`),
+                  cell: (item: DailyRow) =>
+                    item.precipitationProbability == null ? '—' : `${Math.round(item.precipitationProbability)}%`,
                 },
                 {
                   id: 'windSpeedMax',
@@ -283,9 +286,7 @@ export function App() {
             />
           </Container>
 
-          <Box variant="p">
-            Data provided by Open‑Meteo (api.open-meteo.com). Geocoding by Open‑Meteo.
-          </Box>
+          <Box variant="p">Data provided by Open‑Meteo (api.open-meteo.com). Geocoding by Open‑Meteo.</Box>
         </SpaceBetween>
       }
       breadcrumbs={
