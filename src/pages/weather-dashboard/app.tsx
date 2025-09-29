@@ -179,7 +179,8 @@ export function App() {
   }, [units, city, useCustom, customLat, customLon]);
 
   const dailyRows = useMemo(() => {
-    if (!data?.daily) return [] as Array<{ date: string; min?: number; max?: number; code?: number; description: string }>;
+    if (!data?.daily)
+      return [] as Array<{ date: string; min?: number; max?: number; code?: number; description: string }>;
     const { time, temperature_2m_min, temperature_2m_max, weather_code } = data.daily;
     return time.map((t, i) => ({
       date: t,
@@ -200,7 +201,11 @@ export function App() {
             variant="h1"
             actions={
               <SpaceBetween size="xs" direction="horizontal">
-                <Button iconName="external" iconAlign="right" onClick={() => window.open('https://open-meteo.com/en/docs', '_blank')}>
+                <Button
+                  iconName="external"
+                  iconAlign="right"
+                  onClick={() => window.open('https://open-meteo.com/en/docs', '_blank')}
+                >
                   Open-Meteo docs
                 </Button>
                 <Button variant="primary" onClick={fetchWeather} disabled={loading}>
@@ -240,7 +245,13 @@ export function App() {
                 </FormField>
               </Grid>
 
-              <Grid gridDefinition={[{ colspan: { default: 12, m: 4 } }, { colspan: { default: 12, m: 4 } }, { colspan: { default: 12, m: 4 } }]}>
+              <Grid
+                gridDefinition={[
+                  { colspan: { default: 12, m: 4 } },
+                  { colspan: { default: 12, m: 4 } },
+                  { colspan: { default: 12, m: 4 } },
+                ]}
+              >
                 <FormField label="Latitude">
                   <Input
                     value={customLat}
@@ -272,23 +283,34 @@ export function App() {
             </SpaceBetween>
           </Container>
 
-          <Container
-            header={<Header variant="h2">Current conditions</Header>}
-          >
+          <Container header={<Header variant="h2">Current conditions</Header>}>
             {loading && (
               <Box textAlign="center" padding={{ vertical: 'm' }}>
                 <Spinner />
               </Box>
             )}
-            {!loading && error && (
-              <StatusIndicator type="error">{error}</StatusIndicator>
-            )}
+            {!loading && error && <StatusIndicator type="error">{error}</StatusIndicator>}
             {!loading && !error && (
-              <Grid gridDefinition={[{ colspan: { default: 12, m: 3 } }, { colspan: { default: 12, m: 3 } }, { colspan: { default: 12, m: 3 } }, { colspan: { default: 12, m: 3 } }]}>
+              <Grid
+                gridDefinition={[
+                  { colspan: { default: 12, m: 3 } },
+                  { colspan: { default: 12, m: 3 } },
+                  { colspan: { default: 12, m: 3 } },
+                  { colspan: { default: 12, m: 3 } },
+                ]}
+              >
                 <Box variant="h3">Temperature</Box>
-                <Box variant="p">{data?.current?.temperature_2m !== undefined ? `${data.current.temperature_2m.toFixed(1)} ${unitLabel}` : '—'}</Box>
+                <Box variant="p">
+                  {data?.current?.temperature_2m !== undefined
+                    ? `${data.current.temperature_2m.toFixed(1)} ${unitLabel}`
+                    : '—'}
+                </Box>
                 <Box variant="h3">Wind speed</Box>
-                <Box variant="p">{data?.current?.wind_speed_10m !== undefined ? `${data.current.wind_speed_10m} ${data?.current_units?.wind_speed_10m ?? 'km/h'}` : '—'}</Box>
+                <Box variant="p">
+                  {data?.current?.wind_speed_10m !== undefined
+                    ? `${data.current.wind_speed_10m} ${data?.current_units?.wind_speed_10m ?? 'km/h'}`
+                    : '—'}
+                </Box>
                 <Box variant="h3">Conditions</Box>
                 <Box variant="p">{describeWeather(data?.current?.weather_code)}</Box>
                 <Box variant="h3">Local time</Box>
@@ -297,9 +319,7 @@ export function App() {
             )}
           </Container>
 
-          <Container
-            header={<Header variant="h2">7-day forecast</Header>}
-          >
+          <Container header={<Header variant="h2">7-day forecast</Header>}>
             {dailyRows.length === 0 ? (
               <Box variant="p">No forecast available</Box>
             ) : (
@@ -308,8 +328,12 @@ export function App() {
                   <div key={item.date} className="forecast-card">
                     <Container header={<Header variant="h3">{item.date}</Header>}>
                       <SpaceBetween size="xs">
-                        <Box variant="p">Min: {item.min !== undefined ? `${item.min.toFixed(1)} ${unitLabel}` : '—'}</Box>
-                        <Box variant="p">Max: {item.max !== undefined ? `${item.max.toFixed(1)} ${unitLabel}` : '—'}</Box>
+                        <Box variant="p">
+                          Min: {item.min !== undefined ? `${item.min.toFixed(1)} ${unitLabel}` : '—'}
+                        </Box>
+                        <Box variant="p">
+                          Max: {item.max !== undefined ? `${item.max.toFixed(1)} ${unitLabel}` : '—'}
+                        </Box>
                         <Box variant="p">{item.description}</Box>
                       </SpaceBetween>
                     </Container>
@@ -320,7 +344,11 @@ export function App() {
           </Container>
 
           <Box variant="p">
-            Data from <Link href="https://open-meteo.com/" external>Open‑Meteo</Link>. No API key required for typical use.
+            Data from{' '}
+            <Link href="https://open-meteo.com/" external>
+              Open‑Meteo
+            </Link>
+            . No API key required for typical use.
           </Box>
         </SpaceBetween>
       }
