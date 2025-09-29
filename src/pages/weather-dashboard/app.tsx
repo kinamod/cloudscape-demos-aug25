@@ -171,9 +171,12 @@ export function App() {
   };
 
   useEffect(() => {
-    fetchWeather();
+    const handle = setTimeout(() => {
+      fetchWeather();
+    }, 400);
+    return () => clearTimeout(handle);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [units, city, useCustom]);
+  }, [units, city, useCustom, customLat, customLon]);
 
   const dailyRows = useMemo(() => {
     if (!data?.daily) return [] as Array<{ date: string; min?: number; max?: number; code?: number; description: string }>;
