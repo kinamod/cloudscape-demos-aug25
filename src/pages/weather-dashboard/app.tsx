@@ -299,12 +299,12 @@ export function App() {
           >
             <Table
               items={dailyRows}
-              columnDefinitions=[
+              columnDefinitions={[
                 { id: 'date', header: 'Date', cell: item => item.date },
                 { id: 'min', header: `Min (${unitLabel})`, cell: item => (item.min !== undefined ? item.min.toFixed(1) : '—') },
                 { id: 'max', header: `Max (${unitLabel})`, cell: item => (item.max !== undefined ? item.max.toFixed(1) : '—') },
                 { id: 'conditions', header: 'Conditions', cell: item => item.description },
-              ]
+              ]}
               trackBy="date"
               resizableColumns
               stickyHeader
