@@ -16,9 +16,9 @@ import SegmentedControl from '@cloudscape-design/components/segmented-control';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Spinner from '@cloudscape-design/components/spinner';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
-import Table from '@cloudscape-design/components/table';
 
 import { CustomAppLayout } from '../commons/common-components';
+import '../../styles/weather-dashboard.scss';
 
 // Minimal mapping based on WMO weather codes
 const WEATHER_CODE_MAP: Record<number, string> = {
@@ -300,19 +300,23 @@ export function App() {
           <Container
             header={<Header variant="h2">7-day forecast</Header>}
           >
-            <Table
-              items={dailyRows}
-              columnDefinitions={[
-                { id: 'date', header: 'Date', cell: item => item.date },
-                { id: 'min', header: `Min (${unitLabel})`, cell: item => (item.min !== undefined ? item.min.toFixed(1) : '—') },
-                { id: 'max', header: `Max (${unitLabel})`, cell: item => (item.max !== undefined ? item.max.toFixed(1) : '—') },
-                { id: 'conditions', header: 'Conditions', cell: item => item.description },
-              ]}
-              trackBy="date"
-              resizableColumns
-              stickyHeader
-              empty={<Box variant="p">No forecast available</Box>}
-            />
+            {dailyRows.length === 0 ? (
+              <Box variant="p">No forecast available</Box>
+            ) : (
+              <div className="forecast-strip">
+                {dailyRows.map(item => (
+                  <div key={item.date} className="forecast-card">
+                    <Container header={<Header variant="h3">{item.date}</Header>}>
+                      <SpaceBetween size="xs">
+                        <Box variant="p">Min: {item.min !== undefined ? `${item.min.toFixed(1)} ${unitLabel}` : '—'}</Box>
+                        <Box variant="p">Max: {item.max !== undefined ? `${item.max.toFixed(1)} ${unitLabel}` : '—'}</Box>
+                        <Box variant="p">{item.description}</Box>
+                      </SpaceBetween>
+                    </Container>
+                  </div>
+                ))}
+              </div>
+            )}
           </Container>
 
           <Box variant="p">
