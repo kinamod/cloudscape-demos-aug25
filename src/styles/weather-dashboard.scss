@@ -1,0 +1,17 @@
+.forecast-strip {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.forecast-card {
+  flex: 0 0 auto;
+  min-width: 200px;
+}
+
+@media (max-width: 688px) {
+  .forecast-card {
+    min-width: 160px;
+  }
+}
