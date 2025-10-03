@@ -119,7 +119,14 @@ export function App() {
       longitude: String(lon),
       current_weather: 'true',
       hourly: ['temperature_2m'].join(','),
-      daily: ['temperature_2m_max', 'temperature_2m_min', 'precipitation_sum', 'sunrise', 'sunset', 'weather_code'].join(','),
+      daily: [
+        'temperature_2m_max',
+        'temperature_2m_min',
+        'precipitation_sum',
+        'sunrise',
+        'sunset',
+        'weather_code',
+      ].join(','),
       forecast_days: '7',
       timezone: 'auto',
       temperature_unit: units,
@@ -170,7 +177,13 @@ export function App() {
         <SpaceBetween size="l">
           <Container header={<Header variant="h1">Weather dashboard</Header>}>
             <SpaceBetween size="m">
-              <Grid gridDefinition={[{ colspan: { default: 12, m: 6, l: 6 } }, { colspan: { default: 12, m: 3, l: 3 } }, { colspan: { default: 12, m: 3, l: 3 } }]}>
+              <Grid
+                gridDefinition={[
+                  { colspan: { default: 12, m: 6, l: 6 } },
+                  { colspan: { default: 12, m: 3, l: 3 } },
+                  { colspan: { default: 12, m: 3, l: 3 } },
+                ]}
+              >
                 <Input
                   value={query}
                   onChange={({ detail }) => setQuery(detail.value)}
@@ -179,20 +192,26 @@ export function App() {
                 />
                 <Select
                   selectedOption={{ value: units, label: units === 'celsius' ? 'Celsius (°C)' : 'Fahrenheit (°F)' }}
-                  onChange={({ detail }) => setUnits((detail.selectedOption.value as 'celsius' | 'fahrenheit') ?? 'celsius')}
-                  options={[
-                    { value: 'celsius', label: 'Celsius (°C)' },
-                    { value: 'fahrenheit', label: 'Fahrenheit (°F)' },
-                  ] as SelectProps.Option[]}
+                  onChange={({ detail }) =>
+                    setUnits((detail.selectedOption.value as 'celsius' | 'fahrenheit') ?? 'celsius')
+                  }
+                  options={
+                    [
+                      { value: 'celsius', label: 'Celsius (°C)' },
+                      { value: 'fahrenheit', label: 'Fahrenheit (°F)' },
+                    ] as SelectProps.Option[]
+                  }
                   ariaLabel="Temperature unit"
                 />
                 <Select
                   selectedOption={{ value: windUnit, label: windUnit === 'kmh' ? 'Wind km/h' : 'Wind mph' }}
                   onChange={({ detail }) => setWindUnit((detail.selectedOption.value as 'kmh' | 'mph') ?? 'kmh')}
-                  options={[
-                    { value: 'kmh', label: 'Wind km/h' },
-                    { value: 'mph', label: 'Wind mph' },
-                  ] as SelectProps.Option[]}
+                  options={
+                    [
+                      { value: 'kmh', label: 'Wind km/h' },
+                      { value: 'mph', label: 'Wind mph' },
+                    ] as SelectProps.Option[]
+                  }
                   ariaLabel="Wind speed unit"
                 />
               </Grid>
@@ -219,10 +238,7 @@ export function App() {
             <SpaceBetween size="l">
               <Container
                 header={
-                  <Header
-                    variant="h2"
-                    description={`${cityLabel} • ${forecast.timezone}`}
-                  >
+                  <Header variant="h2" description={`${cityLabel} • ${forecast.timezone}`}>
                     Current conditions
                   </Header>
                 }
@@ -234,7 +250,9 @@ export function App() {
                   </div>
                   <div>
                     <Box variant="awsui-key-label">Wind</Box>
-                    <Box variant="p">{forecast.current_weather?.windspeed} {windUnit}</Box>
+                    <Box variant="p">
+                      {forecast.current_weather?.windspeed} {windUnit}
+                    </Box>
                   </div>
                   <div>
                     <Box variant="awsui-key-label">Direction</Box>
@@ -259,12 +277,18 @@ export function App() {
                     {
                       title: 'Max',
                       type: 'line',
-                      data: (forecast.daily?.time || []).map((t, i) => ({ x: new Date(t), y: forecast.daily?.temperature_2m_max?.[i] ?? null })),
+                      data: (forecast.daily?.time || []).map((t, i) => ({
+                        x: new Date(t),
+                        y: forecast.daily?.temperature_2m_max?.[i] ?? null,
+                      })),
                     },
                     {
                       title: 'Min',
                       type: 'line',
-                      data: (forecast.daily?.time || []).map((t, i) => ({ x: new Date(t), y: forecast.daily?.temperature_2m_min?.[i] ?? null })),
+                      data: (forecast.daily?.time || []).map((t, i) => ({
+                        x: new Date(t),
+                        y: forecast.daily?.temperature_2m_min?.[i] ?? null,
+                      })),
                     },
                   ]}
                   i18nStrings={{
