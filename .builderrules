@@ -1,1 +1,3 @@
 When adding new pages make sure to link to them from the homepage in src/pages/index.tsx
+
+When using APIs like open meteo, be sure to do a web search first to learn exactly how to use it
