@@ -7,6 +7,7 @@ import { BrowserRouter, useRoutes } from 'react-router-dom';
 import routes from 'virtual:generated-pages-react';
 import './styles/base.scss';
 import * as FakeServer from './fake-server';
+
 // @ts-expect-error Global FakeServer assignment
 window.FakeServer = Object.assign({}, FakeServer);
 
