@@ -10,8 +10,49 @@ import * as FakeServer from './fake-server';
 // @ts-expect-error Global FakeServer assignment
 window.FakeServer = Object.assign({}, FakeServer);
 
+function LoadingSpinner() {
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#0f1b2a',
+      }}
+    >
+      <div style={{ textAlign: 'center' }}>
+        <div
+          style={{
+            width: '48px',
+            height: '48px',
+            border: '3px solid rgba(5, 115, 209, 0.2)',
+            borderTopColor: '#0972d3',
+            borderRadius: '50%',
+            animation: 'spin 0.8s linear infinite',
+            margin: '0 auto 16px',
+          }}
+        />
+        <div
+          style={{
+            color: '#aab7c4',
+            fontSize: '14px',
+            fontWeight: 400,
+          }}
+        >
+          Loading Cloudscape Demos
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function App() {
-  return <Suspense fallback={<div>Loading...</div>}>{useRoutes(routes)}</Suspense>;
+  return <Suspense fallback={<LoadingSpinner />}>{useRoutes(routes)}</Suspense>;
 }
 
 ReactDOM.createRoot(document.getElementById('app')!).render(

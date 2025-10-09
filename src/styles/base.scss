@@ -2,6 +2,12 @@
 // SPDX-License-Identifier: MIT-0
 @use '@cloudscape-design/design-tokens' as cs;
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 body {
   background: cs.$color-background-layout-main;
   position: relative;
