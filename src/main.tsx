@@ -45,7 +45,7 @@ function LoadingSpinner() {
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
           }}
         >
-          Loading Cloudscape Demos
+          Loading
         </div>
       </div>
     </div>
