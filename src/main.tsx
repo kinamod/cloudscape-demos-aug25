@@ -22,7 +22,7 @@ function LoadingSpinner() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#0f1b2a',
+        background: '#ffffff',
       }}
     >
       <div style={{ textAlign: 'center' }}>
@@ -39,9 +39,10 @@ function LoadingSpinner() {
         />
         <div
           style={{
-            color: '#aab7c4',
+            color: '#545b64',
             fontSize: '14px',
             fontWeight: 400,
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
           }}
         >
           Loading Cloudscape Demos
