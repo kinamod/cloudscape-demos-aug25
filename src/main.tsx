@@ -64,5 +64,3 @@ ReactDOM.createRoot(document.getElementById('app')!).render(
     </BrowserRouter>
   </React.StrictMode>,
 );
-
-// hello world
