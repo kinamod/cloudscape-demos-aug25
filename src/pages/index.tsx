@@ -19,119 +19,119 @@ import Icon from '@cloudscape-design/components/icon';
 import Flashbar from '@cloudscape-design/components/flashbar';
 import Link from '@cloudscape-design/components/link';
 
-// Demo definitions with category information
-const demos = [
-  { route: '/cards', title: 'Card View', description: 'Demo of Cloudscape Cards component.', category: 'Components' },
-  { route: '/chat', title: 'Chat', description: 'Chat UI demo.', category: 'Applications' },
+// Dashboard and application definitions with category information
+const dashboards = [
+  { route: '/cards', title: 'Card View', description: 'Comprehensive card-based data visualization and management.', category: 'Components' },
+  { route: '/chat', title: 'Chat Interface', description: 'Real-time chat and collaboration platform.', category: 'Applications' },
   {
     route: '/configurable-dashboard',
     title: 'Configurable Dashboard',
-    description: 'Dashboard with configurable widgets.',
+    description: 'Customizable dashboard with dynamic widget management.',
     category: 'Dashboards',
   },
-  { route: '/dashboard', title: 'Service Dashboard', description: 'Dashboard layout demo.', category: 'Dashboards' },
+  { route: '/dashboard', title: 'Service Dashboard', description: 'Operational service monitoring and metrics overview.', category: 'Dashboards' },
   {
     route: '/delete-one-click',
-    title: 'One-click Delete',
-    description: 'Delete with a single click.',
+    title: 'Quick Delete',
+    description: 'Streamlined resource deletion workflow.',
     category: 'Forms',
   },
   {
     route: '/delete-with-additional-confirmation',
-    title: 'Delete with Additional Confirmation',
-    description: 'Delete with extra confirmation step.',
+    title: 'Secure Delete',
+    description: 'Multi-step resource deletion with confirmation.',
     category: 'Forms',
   },
   {
     route: '/delete-with-simple-confirmation',
-    title: 'Delete with Simple Confirmation',
-    description: 'Delete with simple confirmation.',
+    title: 'Standard Delete',
+    description: 'Resource deletion with confirmation dialog.',
     category: 'Forms',
   },
-  { route: '/details', title: 'Details Page', description: 'Resource details page.', category: 'Details' },
-  { route: '/details-hub', title: 'Details Hub', description: 'Details page as a hub.', category: 'Details' },
-  { route: '/details-tabs', title: 'Details with Tabs', description: 'Details page with tabs.', category: 'Details' },
-  { route: '/edit', title: 'Edit Resource', description: 'Edit resource demo.', category: 'Forms' },
-  { route: '/form', title: 'Single Page Create', description: 'Single page form demo.', category: 'Forms' },
+  { route: '/details', title: 'Resource Details', description: 'Comprehensive resource information and management.', category: 'Details' },
+  { route: '/details-hub', title: 'Details Hub', description: 'Centralized resource details and insights.', category: 'Details' },
+  { route: '/details-tabs', title: 'Tabbed Details', description: 'Multi-section resource details view.', category: 'Details' },
+  { route: '/edit', title: 'Resource Editor', description: 'Advanced resource configuration and editing.', category: 'Forms' },
+  { route: '/form', title: 'Resource Creation', description: 'Single-page resource creation workflow.', category: 'Forms' },
   {
     route: '/form-unsaved-changes',
-    title: 'Unsaved Changes',
-    description: 'Communicate unsaved changes.',
+    title: 'Change Protection',
+    description: 'Unsaved changes detection and protection.',
     category: 'Forms',
   },
-  { route: '/form-validation', title: 'Form Validation', description: 'Form validation demo.', category: 'Forms' },
-  { route: '/manage-tags', title: 'Manage Tags', description: 'Tag management demo.', category: 'Components' },
+  { route: '/form-validation', title: 'Form Validation', description: 'Real-time form validation and error handling.', category: 'Forms' },
+  { route: '/manage-tags', title: 'Tag Manager', description: 'Resource tagging and organization system.', category: 'Components' },
   {
     route: '/non-console',
-    title: 'Top Navigation',
-    description: 'Non-console top navigation.',
+    title: 'Application Navigation',
+    description: 'Public-facing application navigation.',
     category: 'Navigation',
   },
-  { route: '/onboarding', title: 'Onboarding', description: 'Hands-on tutorials.', category: 'Onboarding' },
+  { route: '/onboarding', title: 'User Onboarding', description: 'Interactive user onboarding and tutorials.', category: 'Onboarding' },
   {
     route: '/product-detail-page',
-    title: 'Product Detail Page',
-    description: 'Product details demo.',
+    title: 'Product Details',
+    description: 'Complete product information and specifications.',
     category: 'Applications',
   },
-  { route: '/read-from-s3', title: 'Read from S3', description: 'Read data from Amazon S3.', category: 'Integration' },
+  { route: '/read-from-s3', title: 'S3 Data Reader', description: 'Amazon S3 data retrieval and visualization.', category: 'Integration' },
   {
     route: '/server-side-table',
-    title: 'Server-side Table',
-    description: 'Table view (server-side).',
+    title: 'Server Table',
+    description: 'Server-side data table with pagination.',
     category: 'Tables',
   },
   {
     route: '/server-side-table-property-filter',
-    title: 'Server-side Table Property Filter',
-    description: 'Table property filter (server-side).',
+    title: 'Advanced Table Filter',
+    description: 'Server-side table with property-based filtering.',
     category: 'Tables',
   },
   {
     route: '/split-panel-comparison',
-    title: 'Split Panel Comparison',
-    description: 'Split view with details comparison.',
+    title: 'Comparison View',
+    description: 'Side-by-side resource comparison panel.',
     category: 'Panels',
   },
-  { route: '/split-panel-multiple', title: 'Split Panel Multiple', description: 'Split view.', category: 'Panels' },
-  { route: '/table', title: 'Table View', description: 'Demo of Cloudscape Table component.', category: 'Tables' },
+  { route: '/split-panel-multiple', title: 'Multi-Panel View', description: 'Multiple split panel layout.', category: 'Panels' },
+  { route: '/table', title: 'Data Table', description: 'Advanced data table with sorting and filtering.', category: 'Tables' },
   {
     route: '/table-date-filter',
-    title: 'Table Date Filter',
-    description: 'Table with date range picker filter.',
+    title: 'Time-Series Table',
+    description: 'Data table with date range filtering.',
     category: 'Tables',
   },
-  { route: '/table-editable', title: 'Editable Table', description: 'Table with inline editing.', category: 'Tables' },
+  { route: '/table-editable', title: 'Editable Table', description: 'Inline table editing and data management.', category: 'Tables' },
   {
     route: '/table-expandable',
     title: 'Expandable Table',
-    description: 'Table with expandable rows.',
+    description: 'Hierarchical data table with expandable rows.',
     category: 'Tables',
   },
   {
     route: '/table-property-filter',
-    title: 'Table Property Filter',
-    description: 'Table with property filter.',
+    title: 'Property Filter Table',
+    description: 'Advanced property-based table filtering.',
     category: 'Tables',
   },
   {
     route: '/table-saved-filters',
-    title: 'Table Saved Filters',
-    description: 'Table with saved filter sets.',
+    title: 'Saved Filters Table',
+    description: 'Table with saved filter configurations.',
     category: 'Tables',
   },
   {
     route: '/table-select-filter',
-    title: 'Table Select Filter',
-    description: 'Table with select filter.',
+    title: 'Select Filter Table',
+    description: 'Table with dropdown-based filtering.',
     category: 'Tables',
   },
-  { route: '/wizard', title: 'Wizard', description: 'Multi-step wizard demo.', category: 'Forms' },
-  { route: '/write-to-s3', title: 'Write to S3', description: 'Write data to Amazon S3.', category: 'Integration' },
+  { route: '/wizard', title: 'Setup Wizard', description: 'Multi-step configuration wizard.', category: 'Forms' },
+  { route: '/write-to-s3', title: 'S3 Data Writer', description: 'Amazon S3 data upload and storage.', category: 'Integration' },
 ];
 
 // Get unique categories
-const categories = [...new Set(demos.map(demo => demo.category))];
+const categories = [...new Set(dashboards.map(dashboard => dashboard.category))];
 
 export default function Home() {
   const [filterText, setFilterText] = useState('');
@@ -139,16 +139,16 @@ export default function Home() {
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
   const itemsPerPage = 12;
 
-  // Filter demos based on filter text and selected category
-  const filteredDemos = demos.filter(
-    demo =>
-      (demo.title.toLowerCase().includes(filterText.toLowerCase()) ||
-        demo.description.toLowerCase().includes(filterText.toLowerCase())) &&
-      (activeCategory === 'All' || demo.category === activeCategory),
+  // Filter dashboards based on filter text and selected category
+  const filteredDashboards = dashboards.filter(
+    dashboard =>
+      (dashboard.title.toLowerCase().includes(filterText.toLowerCase()) ||
+        dashboard.description.toLowerCase().includes(filterText.toLowerCase())) &&
+      (activeCategory === 'All' || dashboard.category === activeCategory),
   );
 
-  // Paginate the filtered demos
-  const paginatedDemos = filteredDemos.slice((currentPageIndex - 1) * itemsPerPage, currentPageIndex * itemsPerPage);
+  // Paginate the filtered dashboards
+  const paginatedDashboards = filteredDashboards.slice((currentPageIndex - 1) * itemsPerPage, currentPageIndex * itemsPerPage);
 
   return (
     <AppLayout
@@ -158,26 +158,49 @@ export default function Home() {
         <ContentLayout
           header={
             <SpaceBetween size="m">
-              <Header
-                variant="h1"
-                actions={
-                  <Button variant="primary" iconAlign="right" iconName="external">
-                    Launch new demo
-                  </Button>
-                }
-              >
-                Cloudscape Design System Demos
-              </Header>
+              <Container>
+                <Grid gridDefinition={[{ colspan: { default: 12, s: 7, m: 7, l: 8 } }, { colspan: { default: 12, s: 5, m: 5, l: 4 } }]}>
+                  <SpaceBetween size="m">
+                    <Header
+                      variant="h1"
+                      description="Production-grade cloud application patterns and interfaces"
+                    >
+                      Dashboard Hub
+                    </Header>
+                    <Box variant="p" color="text-body-secondary">
+                      Access powerful, enterprise-ready dashboards and tools designed for modern cloud operations. 
+                      Monitor services, manage resources, and gain actionable insights across your infrastructure.
+                    </Box>
+                    <Button variant="primary" iconAlign="right" iconName="add-plus">
+                      Create new dashboard
+                    </Button>
+                  </SpaceBetween>
+                  <Box textAlign="center" padding={{ top: 'xl' }}>
+                    <img 
+                      src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop" 
+                      alt="Analytics dashboard visualization" 
+                      style={{ 
+                        width: '100%', 
+                        height: 'auto', 
+                        maxHeight: '220px', 
+                        objectFit: 'cover',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+                      }} 
+                    />
+                  </Box>
+                </Grid>
+              </Container>
 
               <Flashbar
                 items={[
                   {
-                    type: 'info',
+                    type: 'success',
                     content:
-                      'Welcome to the Cloudscape Design System demo collection. These patterns and components showcase modern cloud application experiences.',
+                      'All systems operational. Your infrastructure is running smoothly with 99.9% uptime this month.',
                     dismissible: true,
-                    buttonText: 'Learn more',
-                    onButtonClick: () => window.open('https://cloudscape.design', '_blank'),
+                    buttonText: 'View metrics',
+                    onButtonClick: () => window.location.href = '/dashboard',
                   },
                 ]}
               />
@@ -186,18 +209,18 @@ export default function Home() {
         >
           <SpaceBetween size="l">
             <Container>
-              <Box variant="h2">Demo catalog</Box>
+              <Box variant="h2">Application Catalog</Box>
               <Box variant="p" padding={{ bottom: 'm' }}>
-                Browse {demos.length} examples of Cloudscape Design System patterns and components. Each demo shows best
-                practices for cloud application experiences.
+                Explore {dashboards.length} production-ready applications and dashboards. Each solution is built with enterprise 
+                best practices for scalability, security, and user experience.
               </Box>
 
               <Grid gridDefinition={[{ colspan: { default: 12, xs: 12, s: 12, m: 8, l: 8, xl: 8 } }]}>
                 <TextFilter
                   filteringText={filterText}
-                  filteringPlaceholder="Find demos"
-                  filteringAriaLabel="Filter demos"
-                  countText={`${filteredDemos.length} matches`}
+                  filteringPlaceholder="Search applications"
+                  filteringAriaLabel="Filter applications"
+                  countText={`${filteredDashboards.length} results`}
                   onChange={({ detail }) => {
                     setFilterText(detail.filteringText);
                     setCurrentPageIndex(1);
@@ -229,7 +252,7 @@ export default function Home() {
             <Cards
               ariaLabels={{
                 itemSelectionLabel: (e, n) => `select ${n.title}`,
-                selectionGroupLabel: 'Demo selection',
+                selectionGroupLabel: 'Application selection',
               }}
               cardDefinition={{
                 header: item => <Link href={item.route}>{item.title}</Link>,
@@ -243,7 +266,7 @@ export default function Home() {
                     id: 'actions',
                     content: item => (
                       <Button href={item.route} iconAlign="right" iconName="external" variant="primary">
-                        Open demo
+                        Launch
                       </Button>
                     ),
                   },
@@ -255,8 +278,8 @@ export default function Home() {
                 { cards: 3, minWidth: 900 },
                 { cards: 4, minWidth: 1200 },
               ]}
-              items={paginatedDemos}
-              loadingText="Loading demos"
+              items={paginatedDashboards}
+              loadingText="Loading applications"
               trackBy="title"
               visibleSections={['description', 'type', 'actions']}
               empty={
@@ -265,16 +288,16 @@ export default function Home() {
                     <Icon name="search" size="large" />
                   </Box>
                   <Box variant="h3" padding={{ bottom: 'xs' }}>
-                    No demos match the filters
+                    No applications match your search
                   </Box>
-                  <Box variant="p">Try changing the filters or search term</Box>
+                  <Box variant="p">Try adjusting your filters or search criteria</Box>
                 </Box>
               }
               pagination={
                 <Pagination
                   currentPageIndex={currentPageIndex}
                   onChange={({ detail }) => setCurrentPageIndex(detail.currentPageIndex)}
-                  pagesCount={Math.ceil(filteredDemos.length / itemsPerPage)}
+                  pagesCount={Math.ceil(filteredDashboards.length / itemsPerPage)}
                   ariaLabels={{
                     nextPageLabel: 'Next page',
                     previousPageLabel: 'Previous page',
@@ -283,8 +306,8 @@ export default function Home() {
                 />
               }
               header={
-                <Header counter={filteredDemos.length > 0 ? `(${filteredDemos.length})` : undefined}>
-                  Available demos
+                <Header counter={filteredDashboards.length > 0 ? `(${filteredDashboards.length})` : undefined}>
+                  Available Applications
                 </Header>
               }
             />
