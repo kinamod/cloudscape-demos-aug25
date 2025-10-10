@@ -196,7 +196,8 @@ export default function Home() {
                         width: '100%',
                         height: 'auto',
                         maxHeight: '220px',
-                        objectFit: 'cover',
+                        objectFit: 'contain',
+                        objectPosition: 'top',
                         borderRadius: '8px',
                         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
                       }}
@@ -265,7 +266,7 @@ export default function Home() {
                   {
                     id: 'actions',
                     content: item => (
-                      <Button href={item.route} iconAlign="right" iconName="external" variant="primary">
+                      <Button href={item.route} variant="primary">
                         Launch
                       </Button>
                     ),
