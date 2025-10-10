@@ -196,7 +196,7 @@ export default function Home() {
                         width: '100%',
                         height: 'auto',
                         maxHeight: '220px',
-                        objectFit: 'contain',
+                        objectFit: 'cover',
                         objectPosition: 'top',
                         borderRadius: '8px',
                         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
