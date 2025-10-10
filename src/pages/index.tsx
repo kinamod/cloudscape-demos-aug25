@@ -293,18 +293,17 @@ export default function Home() {
                   <Box variant="p">Try adjusting your filters or search criteria</Box>
                 </Box>
               }
-              pagination={
-                <Pagination
-                  currentPageIndex={currentPageIndex}
-                  onChange={({ detail }) => setCurrentPageIndex(detail.currentPageIndex)}
-                  pagesCount={Math.ceil(filteredDashboards.length / itemsPerPage)}
-                  ariaLabels={{
-                    nextPageLabel: 'Next page',
-                    previousPageLabel: 'Previous page',
-                    pageLabel: pageNumber => `Page ${pageNumber} of all pages`,
-                  }}
-                />
-              }
+            />
+
+            <Pagination
+              currentPageIndex={currentPageIndex}
+              onChange={({ detail }) => setCurrentPageIndex(detail.currentPageIndex)}
+              pagesCount={Math.ceil(filteredDashboards.length / itemsPerPage)}
+              ariaLabels={{
+                nextPageLabel: 'Next page',
+                previousPageLabel: 'Previous page',
+                pageLabel: pageNumber => `Page ${pageNumber} of all pages`,
+              }}
             />
           </SpaceBetween>
         </ContentLayout>
